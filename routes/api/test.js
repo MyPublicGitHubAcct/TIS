@@ -9,7 +9,7 @@ const validateTestInput = require('../../validation/testGetUserId');
 // @ route  GET api/test/test
 // @ desc   Test 'test' route
 // @ access Public
-router.get('/test', (req, res) => res.json({ msg: 'test route works' }));
+router.get('/test', (req, res) => res.json({ msg: 'test works' }));
 
 // @ route  GET api/user/readUserIdByLogon
 // @ desc   Read a user's id by logon
@@ -26,7 +26,7 @@ router.get('/readUserIdByLogon', (req, res) => {
       .then(() => {
         const request = new sql.Request(dbConn);
         request
-          .input('Logon', sql.VarChar, req.headers.Logon)
+          .input('Logon', sql.VarChar, req.headers.logon)
           .output('responseMessage', sql.VarChar)
           .execute('dbtis.tis.sp_ReadUserIdByLogon', (err, result) => {
             dbConn.close();
@@ -39,23 +39,20 @@ router.get('/readUserIdByLogon', (req, res) => {
             console.log('affected   = ' + result.rowsAffected);
 
             if (err) {
-              console.log('sp_ReadUserIdByLogon err = ' + err);
+              console.log('readUserIdByLogon err = ' + err);
             }
 
+            console.log(result.output.responseMessage);
             if (result.output.responseMessage != 'success') {
-              if (result.output.responseMessage == 'Invalid login') {
+              if (result.output.responseMessage == 'Missing logon') {
+                return res.status(404).json({ Logon: 'Logon is missing' });
+              } else if (result.output.responseMessage == 'Invalid logon') {
                 return res.status(404).json({ Logon: 'User does not exist' });
               } else {
                 return res.status(400).json({ message: 'Unknown error' });
               }
             } else {
-              if (result.rowsAffected > 0) {
-                return res.json(result['recordset']);
-              } else {
-                return res
-                  .status(404)
-                  .json({ message: 'readUserById: User not found.' });
-              }
+              return res.json(result.recordset[0]);
             }
           });
       })
