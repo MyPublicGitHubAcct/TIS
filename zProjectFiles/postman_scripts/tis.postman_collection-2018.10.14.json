@@ -1,0 +1,1302 @@
+{
+	"info": {
+		"_postman_id": "89b38f9c-da5a-45e1-9b5f-ca561a862ba3",
+		"name": "tis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "test",
+			"item": [
+				{
+					"name": "test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/test/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"test",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "readUserIdByLogon",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Logon",
+								"value": "tellymx",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/test/readUserIdByLogon",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"test",
+								"readUserIdByLogon"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Logon",
+									"value": "tellymx",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "bRule42*",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/auth/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"auth",
+								"test"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/user/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"user",
+								"test"
+							]
+						},
+						"description": "Test"
+					},
+					"response": []
+				},
+				{
+					"name": "createUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "FirstName",
+									"value": "Harry",
+									"type": "text"
+								},
+								{
+									"key": "LastName",
+									"value": "Nuggets",
+									"type": "text"
+								},
+								{
+									"key": "Manager",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "Logon",
+									"value": "nuggehx",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "sSs2s$ss",
+									"type": "text"
+								},
+								{
+									"key": "Department",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "isManager",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "isActive",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/user/createUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"user",
+								"createUser"
+							]
+						},
+						"description": "Adds a user"
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "FirstName",
+									"value": "Harry",
+									"type": "text"
+								},
+								{
+									"key": "LastName",
+									"value": "Nuggets",
+									"type": "text"
+								},
+								{
+									"key": "Manager",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "Logon",
+									"value": "nuggehx",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "sSs2s$ss",
+									"type": "text"
+								},
+								{
+									"key": "Department",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "isManager",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "isActive",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/user/createUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"user",
+								"createUser"
+							]
+						},
+						"description": "Adds a user"
+					},
+					"response": []
+				},
+				{
+					"name": "readUserById",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "userID",
+								"value": "3"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/user/readUserById",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"user",
+								"readUserById"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "readRoleListForUserId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "userID",
+								"value": "7",
+								"type": "text"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/user/readRoleListForUserId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"user",
+								"readRoleListForUserId"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Logon",
+									"value": "tellymx",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "mRule42*",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "current",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiTG9nb24iOiJoYW1weWN4IiwiRmlyc3ROYW1lIjoiQ2hyaXN0b3BoZXIiLCJpc0FjdGl2ZSI6InRydWUiLCJUaW1lQ3JlYXRlIjoidHJ1ZSIsIlRpbWVSZWFkIjoidHJ1ZSIsIlRpbWVVcGRhdGUiOiJ0cnVlIiwiVGltZURlbGV0ZSI6InRydWUiLCJpYXQiOjE1Mzc3NDIzMDcsImV4cCI6MTUzNzc1NjcwN30.QdDO63CqzZSd3jF3ts_isEowtGchCi6Q7kYsn__bBPo"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/user/current/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"user",
+								"current",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listUsers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "managerid",
+								"value": "2"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/user/listUsers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"user",
+								"listUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "readMgrList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/user/readMgrList",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"user",
+								"readMgrList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "readDptList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/user/readDptList",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"user",
+								"readDptList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "readUserByLogon",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Logon",
+								"value": "figsxfx",
+								"type": "text"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/user/readUserByLogon",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"user",
+								"readUserByLogon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "readUserByLogon Copy",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Logon",
+								"value": "mcnicbx",
+								"type": "text"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/user/readUserByLogon",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"user",
+								"readUserByLogon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "readUserIdByLogon",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Logon",
+								"value": "tellymx",
+								"type": "text"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/user/readUserIdByLogon",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"user",
+								"readUserIdByLogon"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "role",
+			"item": [
+				{
+					"name": "test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/role/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"role",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "readRoleById",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "roleId",
+								"value": "3"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/role/readRoleById",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"role",
+								"readRoleById"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteRoleById",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "RoleName",
+									"value": "TeamMember",
+									"type": "text"
+								},
+								{
+									"key": "ProjectCreate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "ProjectRead",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "ProjectUpdate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "ProjectDelete",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "UserCreate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "UserRead",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "UserUpdate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "UserDelete",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "RoleCreate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "RoleRead",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "RoleUpdate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "RoleDelete",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "TimeCreate",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "TimeRead",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "TimeUpdate",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "TimeDelete",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "TemplateCreate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "TemplateRead",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "TemplateUpdate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "TemplateDelete",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "IssueCreate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "IssueRead",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "IssueUpdate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "IssueDelete",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "CommentCreate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "CommentRead",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "CommentUpdate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "CommentDelete",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "AdminAll",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/role/deleteRoleById",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"role",
+								"deleteRoleById"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateRoleById",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "RoleName",
+									"value": "TeamMember",
+									"type": "text"
+								},
+								{
+									"key": "ProjectCreate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "ProjectRead",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "ProjectUpdate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "ProjectDelete",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "UserCreate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "UserRead",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "UserUpdate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "UserDelete",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "RoleCreate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "RoleRead",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "RoleUpdate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "RoleDelete",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "TimeCreate",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "TimeRead",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "TimeUpdate",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "TimeDelete",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "TemplateCreate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "TemplateRead",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "TemplateUpdate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "TemplateDelete",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "IssueCreate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "IssueRead",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "IssueUpdate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "IssueDelete",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "CommentCreate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "CommentRead",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "CommentUpdate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "CommentDelete",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "AdminAll",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/role/updateRoleById",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"role",
+								"updateRoleById"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createRole",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "RoleName",
+									"value": "TeamMember",
+									"type": "text"
+								},
+								{
+									"key": "ProjectCreate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "ProjectRead",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "ProjectUpdate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "ProjectDelete",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "ProjectApprove",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "UserCreate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "UserRead",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "UserUpdate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "UserDelete",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "UserApprove",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "TimeCreate",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "TimeRead",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "TimeUpdate",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "TimeDelete",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "TimeApprove",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "TemplateCreate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "TemplateRead",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "TemplateUpdate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "TemplateDelete",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "TemplateApprove",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "IssueCreate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "IssueRead",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "IssueUpdate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "IssueDelete",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "IssueApprove",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "CommentCreate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "CommentRead",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "CommentUpdate",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "CommentDelete",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "CommentApprove",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "AdminAll",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/role/createRole",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"role",
+								"createRole"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "userrole",
+			"item": [
+				{
+					"name": "test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/userrole/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"userrole",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUserRole",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "UserId",
+									"value": "6",
+									"type": "text"
+								},
+								{
+									"key": "RoleId",
+									"value": "34",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/userrole/createUserRole",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"userrole",
+								"createUserRole"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

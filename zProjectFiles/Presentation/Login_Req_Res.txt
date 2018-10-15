@@ -1,0 +1,102 @@
+---- Request Headers ----
+
+>> General
+Request URL: http://localhost:3000/routes/api/user/login
+Request Method: POST
+Status Code: 200 OK
+Remote Address: 127.0.0.1:3000
+Referrer Policy: no-referrer-when-downgrade
+
+>> Response Headers
+connection: close
+content-length: 995
+content-type: application/json; charset=utf-8
+date: Sat, 13 Oct 2018 15:41:20 GMT
+etag: W/"3e3-w2D/G6+S6Bg/0FxLm7YEJadUWgs"
+Vary: Accept-Encoding
+x-powered-by: Express
+Accept: application/json, text/plain, */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
+Content-Length: 36
+Content-Type: application/json;charset=UTF-8
+Host: localhost:3000
+Origin: http://localhost:3000
+Referer: http://localhost:3000/login
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36
+    (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36
+
+>> Request Payload
+{Logon: "admin", Password: "admin"}
+Logon: "admin"
+Password: "admin"
+
+---- /Request Headers ----
+
+
+
+---- Response ----
+
+{"success":true,"token":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MS
+    wiTG9nb24iOiJhZG1pbiIsIkZpcnN0TmFtZSI6IkFkbWluIiwiaXNNYW5hZ2VyIjpmYWxzZSwia
+    XNBY3RpdmUiOnRydWUsIlByb2plY3RDcmVhdGUiOiJ0cnVlIiwiUHJvamVjdFJlYWQiOiJ0cnVl
+    IiwiUHJvamVjdFVwZGF0ZSI6InRydWUiLCJQcm9qZWN0RGVsZXRlIjoidHJ1ZSIsIlByb2plY3R
+    BcHByb3ZlIjoidHJ1ZSIsIlVzZXJDcmVhdGUiOiJ0cnVlIiwiVXNlclJlYWQiOiJ0cnVlIiwiVX
+    NlclVwZGF0ZSI6InRydWUiLCJVc2VyRGVsZXRlIjoidHJ1ZSIsIlVzZXJBcHByb3ZlIjoidHJ1Z
+    SIsIlRpbWVDcmVhdGUiOiJ0cnVlIiwiVGltZVJlYWQiOiJ0cnVlIiwiVGltZVVwZGF0ZSI6InRy
+    dWUiLCJUaW1lRGVsZXRlIjoidHJ1ZSIsIlRpbWVBcHByb3ZlIjoidHJ1ZSIsIklzc3VlQ3JlYXR
+    lIjoidHJ1ZSIsIklzc3VlUmVhZCI6InRydWUiLCJJc3N1ZVVwZGF0ZSI6InRydWUiLCJJc3N1ZU
+    RlbGV0ZSI6InRydWUiLCJJc3N1ZUFwcHJvdmUiOiJ0cnVlIiwiQ29tbWVudENyZWF0ZSI6InRyd
+    WUiLCJDb21tZW50UmVhZCI6InRydWUiLCJDb21tZW50VXBkYXRlIjoidHJ1ZSIsIkNvbW1lbnRE
+    ZWxldGUiOiJ0cnVlIiwiQ29tbWVudEFwcHJvdmUiOiJ0cnVlIiwiQWRtaW5BbGwiOiJ0cnVlIiw
+    iaWF0IjoxNTM5NDQ1MjgwLCJleHAiOjE1Mzk0NTk2ODB9.IfejJh314yWn9GhfpH01ph4uGX435
+    wjsiOrzIsM4-fs"}
+
+---- /Response ----
+
+
+
+---- Timing ----
+
+Queuing 0.47 ms
+Stalled 0.30 ms
+DNS Lookup 3 us
+Initial connection 0.40 ms
+Request Sent 47 us
+Waiting (TTFB) 214.35 ms
+Content Download 0.49 ms
+Total 216.14 ms
+
+---- /Timing ----
+
+Queueing. The browser queues requests when:
+    There are higher priority requests.
+    There are already six TCP connections open for this origin, which is the
+    limit. Applies to HTTP/1.0 and HTTP/1.1 only.
+    The browser is briefly allocating space in the disk cache
+
+Stalled. The request could be stalled for any of the reasons described in
+    Queueing.
+
+DNS Lookup. The browser is resolving the request's IP address.
+
+Proxy negotiation. The browser is negotiating the request with a proxy server.
+
+Request sent. The request is being sent.
+
+ServiceWorker Preparation. The browser is starting up the service worker.
+
+Request to ServiceWorker. The request is being sent to the service worker.
+
+Waiting (TTFB). The browser is waiting for the first byte of a response.
+
+    TTFB stands for Time To First Byte. This timing includes 1 round trip of
+    latency and the time the server took to prepare the response.
+
+Content Download. The browser is receiving the response.
+
+Receiving Push. The browser is receiving data for this response via HTTP/2
+    Server Push.
+
+Reading Push. The browser is reading the local data previously received.
