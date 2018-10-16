@@ -24,6 +24,7 @@ router.get('/readUserIdByLogon', (req, res) => {
     dbConn
       .connect()
       .then(() => {
+        console.log('logon = ' + req.headers.logon);
         const request = new sql.Request(dbConn);
         request
           .input('Logon', sql.VarChar, req.headers.logon)
@@ -31,23 +32,20 @@ router.get('/readUserIdByLogon', (req, res) => {
           .execute('dbtis.tis.sp_ReadUserIdByLogon', (err, result) => {
             dbConn.close();
 
-            console.log('count      = ' + result.recordsets.length);
-            console.log('first      = ' + result.recordset);
-            console.log('value      = ' + result.returnValue);
-            console.log('key/value  = ' + result.output);
-            console.log('output msg = ' + result.output.responseMessage);
-            console.log('affected   = ' + result.rowsAffected);
+            console.log('recordset.length = ' + result.recordsets.length);
+            console.log('recordset        = ' + result.recordset);
+            console.log('value            = ' + result.returnValue);
+            console.log('key/value        = ' + result.output);
+            console.log('output msg       = ' + result.output.responseMessage);
+            console.log('affected         = ' + result.rowsAffected);
 
             if (err) {
               console.log('readUserIdByLogon err = ' + err);
             }
 
-            console.log(result.output.responseMessage);
             if (result.output.responseMessage != 'success') {
-              if (result.output.responseMessage == 'Missing logon') {
-                return res.status(404).json({ Logon: 'Logon is missing' });
-              } else if (result.output.responseMessage == 'Invalid logon') {
-                return res.status(404).json({ Logon: 'User does not exist' });
+              if (result.output.responseMessage == 'Invalid logon') {
+                return res.status(404).json({ Logon: 'Invalid logon' });
               } else {
                 return res.status(400).json({ message: 'Unknown error' });
               }

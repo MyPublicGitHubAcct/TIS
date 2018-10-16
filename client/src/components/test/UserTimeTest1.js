@@ -38,7 +38,7 @@ class UserTimeTest1 extends Component {
 
   render() {
     const { errors } = this.state;
-    // const { uid } = this.props.test;
+    const { uid } = this.props.test;
 
     return (
       <div className="userTimeTest1">
@@ -61,7 +61,7 @@ class UserTimeTest1 extends Component {
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
               <div className="text-center result">
-                {errors.Logon ? errors.Logon : 'results go here'}
+                {uid ? uid.ID : 'results go here'}
               </div>
             </div>
           </div>
