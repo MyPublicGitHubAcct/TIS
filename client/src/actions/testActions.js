@@ -9,7 +9,7 @@ export const getUserIdByLogon = Logon => dispatch => {
   dispatch(setUserLoading());
 
   axios
-    .get('/routes/api/test/readUserIdByLogon', Logon)
+    .get('/routes/api/test/readUserIdByLogon', { params: { logon: Logon } })
     .then(res => {
       console.log('yes!....' + res.data);
       dispatch({

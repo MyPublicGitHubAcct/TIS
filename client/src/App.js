@@ -47,7 +47,11 @@ class App extends Component {
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </Switch>
               <Switch>
-                <Route exact path="/timeTest1" component={UserTimeTest1} />
+                <PrivateRoute
+                  exact
+                  path="/timeTest1"
+                  component={UserTimeTest1}
+                />
               </Switch>
             </div>
             <Footer />

@@ -4,10 +4,10 @@ const isEmpty = require('./is-empty');
 module.exports = function validateTestInput(data) {
   let errors = {};
 
-  data.Logon = isEmpty(data.Logon) ? '' : data.Logon;
+  data.Logon = isEmpty(data) ? '' : data;
 
-  if (validator.isEmpty(data.Logon)) {
-    console.log(data.Logon);
+  if (validator.isEmpty(data)) {
+    console.log(data);
     errors.Logon = 'A user logon is required';
   }
 
