@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import TextFieldGroup from '../common/TextFieldGroup';
 import BtnGroup from '../common/BtnGroup';
 import AlertGroup from '../common/AlertGroup';
-import { getUserIdByLogon } from '../../actions/testActions';
+import { getUserIdByLogon, setErrorsClear } from '../../actions/testActions';
 
-class UserTimeTest1 extends Component {
+class UserIdTest extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,46 +25,8 @@ class UserTimeTest1 extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    //clear state.Logon?
+    this.props.setErrorsClear();
     this.props.getUserIdByLogon(this.state.Logon);
-  }
-
-  needAlert(uid) {
-    if (uid) {
-      return (
-        <div
-          className="alert alert-success alert-dismissible fade show"
-          role="alert"
-        >
-          <strong>Holy guacamole!</strong>
-          <button
-            type="button"
-            className="close"
-            data-dismiss="alert"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      );
-    } else {
-      return (
-        <div
-          className="alert alert-danger alert-dismissible fade show"
-          role="alert"
-        >
-          <strong>You are a failure!</strong>
-          <button
-            type="button"
-            className="close"
-            data-dismiss="alert"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      );
-    }
   }
 
   componentDidUpdate(prevProps) {
@@ -83,7 +45,7 @@ class UserTimeTest1 extends Component {
     const { user } = this.props.auth;
 
     return (
-      <div className="userTimeTest1">
+      <div className="userIdTest">
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
@@ -116,12 +78,19 @@ class UserTimeTest1 extends Component {
                   disabled={user.AdminAll === 'false' ? true : false}
                 />
               </form>
-              {uid ? uid.ID : 'still waiting for you to click the button...'}
               <br />
               {uid ? (
-                <AlertGroup type="success" id="collapseAlert" msg={uid.ID} />
+                <AlertGroup
+                  type="success"
+                  id="collapseAlert"
+                  msg={`${this.state.Logon} is user id ${uid.ID}`}
+                />
               ) : (
-                <AlertGroup type="failure" id="collapseAlert" msg="...nope" />
+                <AlertGroup
+                  type="failure"
+                  id="collapseAlert"
+                  msg={`...nope, can't find ${this.state.Logon}`}
+                />
               )}
             </div>
           </div>
@@ -131,9 +100,10 @@ class UserTimeTest1 extends Component {
   }
 }
 
-UserTimeTest1.props = {
+UserIdTest.props = {
   auth: PropTypes.object.isRequired,
   getUserIdByLogon: PropTypes.func.isRequired,
+  setErrorsClear: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   test: PropTypes.object.isRequired
 };
@@ -147,5 +117,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getUserIdByLogon }
-)(UserTimeTest1);
+  { getUserIdByLogon, setErrorsClear }
+)(UserIdTest);

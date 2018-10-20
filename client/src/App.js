@@ -14,7 +14,7 @@ import Landing from './components/layout/Landing';
 import Dashboard from './components/layout/Dashboard';
 import Login from './components/auth/Login';
 
-import UserTimeTest1 from './components/test/UserTimeTest1';
+import UserIdTest from './components/test/UserIdTest';
 
 import './App.css';
 
@@ -47,11 +47,7 @@ class App extends Component {
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </Switch>
               <Switch>
-                <PrivateRoute
-                  exact
-                  path="/timeTest1"
-                  component={UserTimeTest1}
-                />
+                <PrivateRoute exact path="/timeTest1" component={UserIdTest} />
               </Switch>
             </div>
             <Footer />

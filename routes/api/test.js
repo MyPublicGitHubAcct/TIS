@@ -20,9 +20,6 @@ router.get('/readUserIdByLogon', (req, res) => {
     return res.status(400).json(errors);
   }
 
-  // console.log('req.headers = ' + JSON.stringify(req.headers));
-  // console.log('req.query.logon = ' + req.query.logon);
-
   try {
     const dbConn = new sql.ConnectionPool(config.dbSa);
     dbConn
