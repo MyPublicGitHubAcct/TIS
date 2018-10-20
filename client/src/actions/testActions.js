@@ -11,14 +11,12 @@ export const getUserIdByLogon = Logon => dispatch => {
   axios
     .get('/routes/api/test/readUserIdByLogon', { params: { logon: Logon } })
     .then(res => {
-      console.log('yes!....' + res.data);
       dispatch({
         type: GET_USER_ID_BY_LOGON,
         payload: res.data
       });
     })
     .catch(err => {
-      console.log('noooo!....' + err.response.data);
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data

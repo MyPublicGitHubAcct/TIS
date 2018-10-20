@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextFieldGroup from '../common/TextFieldGroup';
+import BtnGroup from '../common/BtnGroup';
+import AlertGroup from '../common/AlertGroup';
 import { getUserIdByLogon } from '../../actions/testActions';
 
 class UserTimeTest1 extends Component {
@@ -10,7 +12,7 @@ class UserTimeTest1 extends Component {
     this.state = {
       Logon: '',
       test: {},
-      errors: {} // not actually sure if this is needed > props
+      errors: {}
     };
 
     this.onChange = this.onChange.bind(this);
@@ -23,7 +25,46 @@ class UserTimeTest1 extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+    //clear state.Logon?
     this.props.getUserIdByLogon(this.state.Logon);
+  }
+
+  needAlert(uid) {
+    if (uid) {
+      return (
+        <div
+          className="alert alert-success alert-dismissible fade show"
+          role="alert"
+        >
+          <strong>Holy guacamole!</strong>
+          <button
+            type="button"
+            className="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      );
+    } else {
+      return (
+        <div
+          className="alert alert-danger alert-dismissible fade show"
+          role="alert"
+        >
+          <strong>You are a failure!</strong>
+          <button
+            type="button"
+            className="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      );
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -39,6 +80,7 @@ class UserTimeTest1 extends Component {
   render() {
     const { errors } = this.state;
     const { uid } = this.props.test;
+    const { user } = this.props.auth;
 
     return (
       <div className="userTimeTest1">
@@ -56,13 +98,31 @@ class UserTimeTest1 extends Component {
                     value={this.state.Logon}
                     onChange={this.onChange}
                     error={errors.Logon}
+                    disabled={user.AdminAll === 'false' ? 'disabled' : ''}
                   />
                 </div>
-                <input type="submit" className="btn btn-info btn-block mt-4" />
+                <BtnGroup
+                  datatoggle="collapse"
+                  datatarget="#collapseAlert"
+                  ariaexpanded="false"
+                  ariacontrols="collapseAlert"
+                  type="submit"
+                  name="submit"
+                  value={
+                    user.AdminAll === 'true'
+                      ? 'You have permission to press this.'
+                      : 'You cannot press this.'
+                  }
+                  disabled={user.AdminAll === 'false' ? true : false}
+                />
               </form>
-              <div className="text-center result">
-                {uid ? uid.ID : 'results go here'}
-              </div>
+              {uid ? uid.ID : 'still waiting for you to click the button...'}
+              <br />
+              {uid ? (
+                <AlertGroup type="success" id="collapseAlert" msg={uid.ID} />
+              ) : (
+                <AlertGroup type="failure" id="collapseAlert" msg="...nope" />
+              )}
             </div>
           </div>
         </div>
@@ -72,23 +132,18 @@ class UserTimeTest1 extends Component {
 }
 
 UserTimeTest1.props = {
-  auth: PropTypes.object.isRequired, // not sure this is needed
+  auth: PropTypes.object.isRequired,
   getUserIdByLogon: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
-  test: PropTypes.object.isRequired // for testing only
+  test: PropTypes.object.isRequired
 };
 
 // define props in this component
 const mapStateToProps = state => ({
-  auth: state.auth, // not sure this is needed
-  errors: state.errors, // not sure this is needed
-  test: state.test // not sure this is needed
+  auth: state.auth,
+  errors: state.errors,
+  test: state.test
 });
-
-// export default connect(
-//   mapStateToProps,
-//   { getUserIdByLogon }
-// )(UserTimeTest1);
 
 export default connect(
   mapStateToProps,

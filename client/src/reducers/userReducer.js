@@ -1,6 +1,5 @@
 import {
   GET_USER_BY_LOGON,
-  GET_USER_ID_BY_LOGON,
   GET_MGR_LIST,
   GET_DPT_LIST,
   GET_USER_ROLE_LIST,
@@ -22,12 +21,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         userData: action.payload,
-        loading: false
-      };
-    case GET_USER_ID_BY_LOGON:
-      return {
-        ...state,
-        userId: action.payload,
         loading: false
       };
     case GET_MGR_LIST:

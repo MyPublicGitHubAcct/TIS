@@ -47,16 +47,12 @@ router.get('/readUserIdByLogon', (req, res) => {
             }
 
             if (result.output.responseMessage != 'success') {
-              console.log('---t-not-success');
               if (result.output.responseMessage == 'Invalid logon') {
-                console.log('---t-not-success-invalid-logon');
                 return res.status(404).json({ Logon: 'Invalid logon' });
               } else {
-                console.log('---t-not-success-unknown-error');
                 return res.status(400).json({ message: 'Unknown error' });
               }
             } else {
-              console.log('---t-success');
               return res.json(result.recordset[0]);
             }
           });
