@@ -16,6 +16,8 @@ import Login from './components/auth/Login';
 
 import UserIdTest from './components/test/UserIdTest';
 
+import AddUser from './components/user/AddUser';
+
 import './App.css';
 
 // persist user if token exists
@@ -47,7 +49,10 @@ class App extends Component {
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </Switch>
               <Switch>
-                <PrivateRoute exact path="/timeTest1" component={UserIdTest} />
+                <PrivateRoute exact path="/userIdTest" component={UserIdTest} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/addUser" component={AddUser} />
               </Switch>
             </div>
             <Footer />

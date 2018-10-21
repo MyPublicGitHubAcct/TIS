@@ -26,7 +26,7 @@
 -- EXEC dbtis.tis.sp_ReadUserById @userID=2
 -- EXEC dbtis.tis.sp_ReadRoleListForUserId @userID=1
 -- EXEC dbtis.tis.sp_ReadUserByLogon @Logon='tellymx'
-EXEC dbtis.tis.sp_ReadUserIdByLogon @Logon='frankhx'
+EXEC dbtis.tis.sp_ReadUserIdByLogon @Logon='warpymx'
 
 
 

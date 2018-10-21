@@ -33,7 +33,6 @@ export const setUserLoading = () => {
 
 export const setErrorsClear = () => dispatch => {
   dispatch({
-    type: CLEAR_ERRORS,
-    payload: null
+    type: CLEAR_ERRORS
   });
 };

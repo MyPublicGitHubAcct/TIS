@@ -4,16 +4,17 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import TextFieldGroup from '../common/TextFieldGroup';
-import { getMgrList } from '../../actions/userActions';
-import { getDptList } from '../../actions/userActions';
-import { addUser } from '../../actions/userActions';
-import { holdUserLogon, getUserByLogon } from '../../actions/userActions';
-// import Spinner from '../common/Spinner';  // see 48 before UpdateUser
-// import { clearUser } from '../../actions/userActions';
+import {
+  addUser,
+  getMgrList,
+  getDptList,
+  getUserByLogon,
+  getUserRoleList
+} from '../../actions/userActions';
 
 class AddUser extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       FirstName: '',
       LastName: '',
@@ -23,22 +24,29 @@ class AddUser extends Component {
       Department: '',
       isManager: '',
       isActive: '',
+      roles: {},
       errors: {}
     };
 
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
+    this.onClickRole = this.onClickRole.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount() {
     this.props.getMgrList();
     this.props.getDptList();
+    this.props.getUserRoleList();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
+  componentDidUpdate(prevProps) {
+    if (this.props.user.roles !== prevProps.user.roles) {
+      this.setState({ roles: this.props.user.roles });
+    }
+
+    if (this.props.errors !== prevProps.errors) {
+      this.setState({ errors: this.props.errors });
     }
   }
 
@@ -78,12 +86,41 @@ class AddUser extends Component {
     }
   }
 
+  populateRoleOpts(roles) {
+    if (roles) {
+      return roles.map(role => (
+        <tr key={role.ID}>
+          <td className="text-left">{role.RoleName}</td>
+          <td>
+            <div className="form-check">
+              <input
+                name={role.RoleName}
+                id={role.ID}
+                type="checkbox"
+                className="form-check-input"
+                value={this.state.roles[[role.ID].UserHas]}
+                onClick={this.onClickRole}
+              />
+            </div>
+          </td>
+        </tr>
+      ));
+    }
+  }
+
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
   onClick(e) {
     this.setState({ [e.target.name]: e.target.checked });
+  }
+
+  onClickRole(e) {
+    let newRoles = { ...this.state.roles };
+    newRoles[e.target.id - 1].UserHas = e.target.checked;
+    console.log(`newRoles = ${JSON.stringify(newRoles)}`);
+    this.setState({ roles: newRoles });
   }
 
   onSubmit(e) {
@@ -103,14 +140,21 @@ class AddUser extends Component {
       isActive: ia
     };
 
-    this.props.holdUserLogon(this.state.Logon);
     this.props.addUser(newUser, this.props.history);
     this.props.getUserByLogon(this.state.Logon);
+
+    // TODO create object with UserId, RoleId, UserHas
+    // const newUserRole = {};
+    //this.props.saveuserroles or something
+
+    // TODO -or- a better idea may be to make addUser do
+    // the whole thing
   }
 
   render() {
     const { errors } = this.state;
-    const { mgrList, dptList } = this.props.user;
+    const { mgrList, dptList, roles } = this.props.user;
+    // const { user } = this.props.auth;
 
     return (
       <div className="register">
@@ -243,6 +287,17 @@ class AddUser extends Component {
                     </label>
                   </div>
                 </div>
+                <br />
+                <h2>User roles</h2>
+                <table className="table table-bordered table-sm table-responsive{-sm|-md|-lg|-xl}">
+                  <thead>
+                    <tr>
+                      <th scope="col">RoleName</th>
+                      <th scope="col">UserHas</th>
+                    </tr>
+                  </thead>
+                  <tbody>{this.populateRoleOpts(roles)}</tbody>
+                </table>
 
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
@@ -258,8 +313,8 @@ AddUser.propTypes = {
   addUser: PropTypes.func.isRequired,
   getMgrList: PropTypes.func.isRequired,
   getDptList: PropTypes.func.isRequired,
-  holdUserLogon: PropTypes.func.isRequired,
   getUserByLogon: PropTypes.func.isRequired,
+  getUserRoleList: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired
 };
 
@@ -270,5 +325,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addUser, getMgrList, getDptList, holdUserLogon, getUserByLogon }
+  { addUser, getMgrList, getDptList, getUserByLogon, getUserRoleList }
 )(withRouter(AddUser));

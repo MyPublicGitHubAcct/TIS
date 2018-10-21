@@ -67,9 +67,9 @@ class Dashboard extends Component {
       </span>
     );
 
-    const showTimeTest1 = (
+    const showUserIdTest = (
       <span>
-        <Link to="/timeTest1" className="btn btn-secondary m-2">
+        <Link to="/userIdTest" className="btn btn-secondary m-2">
           Test 1
         </Link>
       </span>
@@ -182,7 +182,7 @@ class Dashboard extends Component {
             Time
           </h1>
           <div className="card-body">
-            {user.TimeRead ? showTimeTest1 : null}
+            {user.TimeRead ? showUserIdTest : null}
             {user.TimeCreate ? showTimeCreate : null}
             {user.TimeUpdate ? showTimeUpdate : null}
             {user.TimeDelete ? showTimeDelete : null}
