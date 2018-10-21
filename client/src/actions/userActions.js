@@ -3,6 +3,7 @@ import axios from 'axios';
 import {
   GET_ERRORS,
   GET_USER_BY_LOGON,
+  GET_USER_ID_BY_LOGON,
   GET_MGR_LIST,
   GET_DPT_LIST,
   GET_USER_ROLE_LIST,
@@ -48,24 +49,6 @@ export const getDptList = () => dispatch => {
     );
 };
 
-//
-// export const getRoleListForUserId = () => dispatch => {
-//   axios
-//     .get('/routes/api/user/readUserRoleList')
-//     .then(res => {
-//       dispatch({
-//         type: GET_USER_ROLE_LIST,
-//         payload: res.data
-//       });
-//     })
-//     .catch(err => {
-//       dispatch({
-//         type: GET_ERRORS,
-//         payload: err.response.data
-//       });
-//     });
-// };
-
 // get user role list
 export const getUserRoleList = () => dispatch => {
   axios
@@ -99,7 +82,7 @@ export const addUser = userData => dispatch => {
   });
 };
 
-// add a user's roles
+// add a user's roles one at a time
 export const addUsersRole = roleData => dispatch => {
   return new Promise(resolve => {
     axios
@@ -122,6 +105,25 @@ export const getUserByLogon = Logon => dispatch => {
     .then(res =>
       dispatch({
         type: GET_USER_BY_LOGON,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+// get user id by logon
+export const getUserIdByLogon = Logon => dispatch => {
+  dispatch(setUserLoading());
+  axios
+    .get('/routes/api/user/readUserIdByLogon', Logon)
+    .then(res =>
+      dispatch({
+        type: GET_USER_ID_BY_LOGON,
         payload: res.data
       })
     )

@@ -8,8 +8,9 @@ import {
   addUser,
   getMgrList,
   getDptList,
-  getUserByLogon,
-  getUserRoleList
+  getUserIdByLogon,
+  getUserRoleList,
+  addUsersRole
 } from '../../actions/userActions';
 
 class AddUser extends Component {
@@ -119,8 +120,8 @@ class AddUser extends Component {
   onClickRole(e) {
     let newRoles = { ...this.state.roles };
     newRoles[e.target.id - 1].UserHas = e.target.checked;
-    console.log(`newRoles = ${JSON.stringify(newRoles)}`);
     this.setState({ roles: newRoles });
+    // console.log(`updated state.roles = ${JSON.stringify(this.state.roles)}`);
   }
 
   onSubmit(e) {
@@ -140,21 +141,39 @@ class AddUser extends Component {
       isActive: ia
     };
 
-    this.props.addUser(newUser, this.props.history);
-    this.props.getUserByLogon(this.state.Logon);
+    // TODO - uncomment these
+    // this.props.addUser(newUser, this.props.history);
+    // this.props.getUserIdByLogon(this.state.Logon);
 
-    // TODO create object with UserId, RoleId, UserHas
-    // const newUserRole = {};
-    //this.props.saveuserroles or something
+    // =====================TESTING BELOW===========================
+    // TODO for each role, create object with UserId, RoleId, UserHas
 
-    // TODO -or- a better idea may be to make addUser do
-    // the whole thing
+    // console.log(JSON.stringify(this.state.roles));
+    alert(JSON.stringify(this.state.roles[2]));
+
+    // stuff that does not work here -
+    // this.state.roles.forEach(role => {
+    //   let userhas;
+    //   if (role.UserHas == true) {
+    //     userhas = 'true';
+    //   } else {
+    //     userhas = 'false';
+    //   }
+    //   let newUserRole = {
+    //     // UserId: this.state.user.userId,
+    //     UserId: 1,
+    //     RoleId: role.ID,
+    //     UserHas: userhas
+    //   };
+    //   console.log(`newUserRole = ${JSON.stringify(newUserRole)}`);
+    //   // this.props.addUsersRole(newUserRole);
+    // });
   }
 
   render() {
     const { errors } = this.state;
     const { mgrList, dptList, roles } = this.props.user;
-    // const { user } = this.props.auth;
+    // const { user } = this.props.auth;  // TODO make require some level of authority
 
     return (
       <div className="register">
@@ -313,8 +332,9 @@ AddUser.propTypes = {
   addUser: PropTypes.func.isRequired,
   getMgrList: PropTypes.func.isRequired,
   getDptList: PropTypes.func.isRequired,
-  getUserByLogon: PropTypes.func.isRequired,
+  getUserIdByLogon: PropTypes.func.isRequired,
   getUserRoleList: PropTypes.func.isRequired,
+  addUsersRole: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired
 };
 
@@ -325,5 +345,12 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addUser, getMgrList, getDptList, getUserByLogon, getUserRoleList }
+  {
+    addUser,
+    getMgrList,
+    getDptList,
+    getUserIdByLogon,
+    getUserRoleList,
+    addUsersRole
+  }
 )(withRouter(AddUser));

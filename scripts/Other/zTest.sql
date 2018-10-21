@@ -19,14 +19,14 @@
 -- SELECT ID, RoleName, 'false' UserHas FROM [tis].[AppRole]
 
 -- EXEC dbtis.tis.sp_ListUsersByManagerId @managerID = 2
--- EXEC dbtis.tis.sp_FillMgrOpts
+EXEC dbtis.tis.sp_FillMgrOpts
 -- EXEC dbtis.tis.sp_FillDptOpts
 -- EXEC dbtis.tis.sp_FillRoleOpts
 -- EXEC dbtis.tis.sp_ReadRoleListForUser @Logon='hampycx'
 -- EXEC dbtis.tis.sp_ReadUserById @userID=2
 -- EXEC dbtis.tis.sp_ReadRoleListForUserId @userID=1
 -- EXEC dbtis.tis.sp_ReadUserByLogon @Logon='tellymx'
-EXEC dbtis.tis.sp_ReadUserIdByLogon @Logon='warpymx'
+-- EXEC dbtis.tis.sp_ReadUserIdByLogon @Logon='warpymx'
 
 
 

@@ -75,8 +75,8 @@ router.post('/createUsersRole', (req, res) => {
       .then(() => {
         const request = new sql.Request(dbConn);
         request
-          .input('UserId', sql.int, req.body.UserId)
-          .input('RoleId', sql.int, req.body.RoleId)
+          .input('UserId', sql.Int, req.body.UserId)
+          .input('RoleId', sql.Int, req.body.RoleId)
           .input('UserHas', sql.Int, req.body.UserHas)
           .output('responseMessage', sql.VarChar)
           .execute('dbtis.tis.sp_CreateUserRole', (err, result) => {
@@ -87,7 +87,7 @@ router.post('/createUsersRole', (req, res) => {
             }
 
             if (result.output.responseMessage == 'failed') {
-              return res.json({ message: 'User already exists' });
+              return res.json({ message: 'UserRole already exists' });
             } else {
               return res.json({
                 message: 'successfully added ' + req.body.FirstName

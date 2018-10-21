@@ -18,3 +18,8 @@
 ## auth and auth
 
 - Add description for each role and show with tooltip where needed.
+
+## users
+
+- For adding users, first check if Logon already exists
+- For adding user, combine getUserIdByLogon() and addUsersRole() ?
