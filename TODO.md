@@ -23,3 +23,6 @@
 
 - For adding users, first check if Logon already exists
 - For adding user, combine getUserIdByLogon() and addUsersRole() ?
+- In AddUser, when setting state=props for roles, have structure of
+  { RoleId: props.ID, UserHas: props.UserHas }
+  ... then it might be easier. Also, look @ sp\_ that provides data.
