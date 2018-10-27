@@ -19,7 +19,7 @@
 -- SELECT ID, RoleName, 'false' UserHas FROM [tis].[AppRole]
 
 -- EXEC dbtis.tis.sp_ListUsersByManagerId @managerID = 2
-EXEC dbtis.tis.sp_FillMgrOpts
+-- EXEC dbtis.tis.sp_FillMgrOpts
 -- EXEC dbtis.tis.sp_FillDptOpts
 -- EXEC dbtis.tis.sp_FillRoleOpts
 -- EXEC dbtis.tis.sp_ReadRoleListForUser @Logon='hampycx'

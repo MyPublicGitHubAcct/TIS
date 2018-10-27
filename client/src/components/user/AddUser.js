@@ -130,7 +130,7 @@ class AddUser extends Component {
     const im = this.state.isManager ? 1 : 0;
     const ia = this.state.isActive ? 1 : 0;
 
-    const newUser = {
+    const newUserDetails = {
       FirstName: this.state.FirstName,
       LastName: this.state.LastName,
       Manager: this.state.Manager,
@@ -141,33 +141,38 @@ class AddUser extends Component {
       isActive: ia
     };
 
-    // TODO - uncomment these
+    let stateRoles = this.state.roles;
+    let newUserRoles = [];
+    let ri;
+    let uh;
+
+    for (let r in stateRoles) {
+      ri = stateRoles[r].ID;
+
+      if (
+        stateRoles[r].UserHas === 'false' ||
+        stateRoles[r].UserHas === false
+      ) {
+        uh = 0;
+      } else if (
+        stateRoles[r].UserHas === 'true' ||
+        stateRoles[r].UserHas === true
+      ) {
+        uh = 1;
+      }
+
+      newUserRoles.push({ RoleId: ri, UserHas: uh });
+    }
+
+    let newUser = [];
+    newUser.push({ Details: newUserDetails, Roles: newUserRoles });
+
+    console.log(JSON.stringify(newUser));
+
+    // TODO - need all of these?
     // this.props.addUser(newUser, this.props.history);
     // this.props.getUserIdByLogon(this.state.Logon);
-
-    // =====================TESTING BELOW===========================
-    // TODO for each role, create object with UserId, RoleId, UserHas
-
-    // console.log(JSON.stringify(this.state.roles));
-    alert(JSON.stringify(this.state.roles[2]));
-
-    // stuff that does not work here -
-    // this.state.roles.forEach(role => {
-    //   let userhas;
-    //   if (role.UserHas == true) {
-    //     userhas = 'true';
-    //   } else {
-    //     userhas = 'false';
-    //   }
-    //   let newUserRole = {
-    //     // UserId: this.state.user.userId,
-    //     UserId: 1,
-    //     RoleId: role.ID,
-    //     UserHas: userhas
-    //   };
-    //   console.log(`newUserRole = ${JSON.stringify(newUserRole)}`);
-    //   // this.props.addUsersRole(newUserRole);
-    // });
+    // this.props.addUsersRole(userRole);
   }
 
   render() {

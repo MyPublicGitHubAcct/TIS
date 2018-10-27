@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 const sql = require('mssql');
 const config = require('../../config');
-const jwt = require('jsonwebtoken');
-const keys = require('../../config/keys');
+// const jwt = require('jsonwebtoken');
+// const keys = require('../../config/keys');
 const passport = require('passport');
 
 // load input validation
 const validateCreateUserInput = require('../../validation/createUser');
-const validateLoginInput = require('../../validation/login');
+// const validateLoginInput = require('../../validation/login');
 const validateTestInput = require('../../validation/testGetUserId');
 
 // @ route  GET api/user/test
