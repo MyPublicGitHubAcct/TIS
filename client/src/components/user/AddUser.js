@@ -129,17 +129,21 @@ class AddUser extends Component {
 
     const im = this.state.isManager ? 1 : 0;
     const ia = this.state.isActive ? 1 : 0;
+    const ma = parseInt(this.state.Manager, 10);
+    const de = parseInt(this.state.Department, 10);
 
     const newUserDetails = {
       FirstName: this.state.FirstName,
       LastName: this.state.LastName,
-      Manager: this.state.Manager,
+      Manager: ma,
       Logon: this.state.Logon,
       Password: this.state.Password,
-      Department: this.state.Department,
+      Department: de,
       isManager: im,
       isActive: ia
     };
+
+    console.log('newUserDetails = ' + JSON.stringify(newUserDetails));
 
     let stateRoles = this.state.roles;
     let newUserRoles = [];
@@ -167,7 +171,9 @@ class AddUser extends Component {
     let newUser = [];
     newUser.push({ Details: newUserDetails, Roles: newUserRoles });
 
-    console.log(JSON.stringify(newUser));
+    console.log('stateRoles = ' + JSON.stringify(stateRoles));
+    console.log('newUserRoles = ' + JSON.stringify(newUserRoles));
+    console.log('newUser = ' + JSON.stringify(newUser));
 
     // TODO - need all of these?
     // this.props.addUser(newUser, this.props.history);

@@ -4,19 +4,19 @@ Simple OSS application for tracking small project time and issues. It is not yet
 
 ## Note about reporting
 
-This application is not intended to do reporting. Instead, we recommend using a tool such as <a href="https://docs.microsoft.com/en-us/sql/reporting-services/">SSRS</a> and have included example reports.
+This application is not intended to do reporting. Instead, we recommend using a tool such as <a href="https://docs.microsoft.com/en-us/sql/reporting-services/">SSRS</a> and <b>TODO</b> have included example reports.
 
 <hr>
 
-## Frameworks and other dependencies
+## Frameworks, libraries, and other dependencies
 
-The application is made up of <b>TODO</b> and (for now) a MS SQL Server database.
+The application was made using following:
 
 <ul>
     <li><a href="https://www.microsoft.com/en-us/sql-server/sql-server-2017">MS Sql Server</a> for data storage.</li>
     <li><a href="https://www.docker.com">Docker</a> for running SQL Server on Mac.</li>
     <li><a href="https://nodejs.org/en/">Node.js</a> for running Javascript server-side.</li>
-    <li><a href="https://expressjs.com">Express</a> for back-end state.</li>
+    <li><a href="https://expressjs.com">Express</a> for server-side state.</li>
     <li><a href="https://reactjs.org">React</a> front-end Javascript library.</li>
     <li><a href="https://reacttraining.com/react-router/">React Router</a> for front-end routing.</li>
     <li><a href="https://getbootstrap.com">Bootstrap</a> library for GUI widgets.</li>
@@ -33,16 +33,6 @@ https://nodejs.org/en/docs/ <br>
 This will install both Node.js as well as npm, which will be used for <i>most</i> of the other dependencies.
 
 ### MS SQL Server
-
-https://www.codeproject.com/Tips/1189900/Understanding-callbacks-through-Asynchronous-Execu
-https://database.guide/how-to-install-sql-server-on-a-mac/
-https://www.quackit.com/sql_server/sql_server_2017/tutorial/
-https://www.microsoft.com/en-us/sql-server/developer-get-started/node/mac/
-https://docs.microsoft.com/en-us/sql/t-sql/
-https://social.technet.microsoft.com/wiki/contents/articles/36720.sql-server-crud-actions-using-node-js.aspx
-https://www.codeproject.com/Articles/1158115/SQL-Server-CRUD-Actions-Using-Node-JShttps://ravisatyadarshi.wordpress.com/2017/02/18/encrypt-password-in-sql/
-https://medium.com/@Ratnaparkhi/testing-saml-flow-in-your-node-js-application-1ab82f95b69d
-http://www.passportjs.org/packages/passport-saml-too/
 
 #### First install Docker CE for Mac
 
@@ -73,13 +63,15 @@ https://store.docker.com/editions/community/docker-ce-desktop-mac
     mssql -u sa -p Re@11yStr0ngPwd2
     mssql -u tisApp -p pa$Sw0rd
 
-#### Install dbeaver
+#### Install dbeaver & MS Azure Data Studio
 
 https://dbeaver.io/download/ (Community edition)
 
+https://docs.microsoft.com/en-us/sql/azure-data-studio/
+
 ##### Set up the connection to the SQL Server database
 
-https://github.com/dbeaver/dbeaver/wiki/Create-Connection
+###### dbeaver
 
     Server Name: localhost
     Database/Schema: tis
@@ -88,6 +80,17 @@ https://github.com/dbeaver/dbeaver/wiki/Create-Connection
     Password: Re@11yStr0ngPwd2
     Save password locally:
     Slow All Schemas: true
+
+###### Azure Data Studio
+
+    Connection type: Microsoft SQL Server
+    Server: localhost
+    Authentication type: SQL Login
+    User name: sa
+    Password: Re@11yStr0ngPwd2
+    Database: dbtis
+    Server group: <Default>
+    Name: <blank>
 
 #### To use:
 
@@ -117,7 +120,7 @@ https://expressjs.com
 
 ### React install
 
-React and several other useful tools, including a dev webserver, are installed with create-react-app. See <b>Practical notes</b> below.<br>
+React and several other useful tools, including a dev webserver, are installed with create-react-app. See <b>Practical note 2</b> below.<br>
 https://reactjs.org/docs/getting-started.html <br>
 
 ### React Router install
@@ -158,7 +161,7 @@ Next, make the boilerplate application. <br>
 
 #### NOTE 3: to run an app:<br>
 
-    cd Documents/SourceControl/TIS
+    cd Documents/SourceControl/tis
     docker start sql_server_tis
     npm run dev
 
@@ -178,12 +181,18 @@ or
 
 #### Note 6: http status codes and methods
 
-https://www.restapitutorial.com/httpstatuscodes.html
+https://www.restapitutorial.com/httpstatuscodes.html <br />
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
 
-#### Note 7: Async/Await
+#### Note 7: Guides for React used during development
 
-https://www.valentinog.com/blog/how-async-await-in-react/
+<ul>
+    <li>Async/Await https://www.valentinog.com/blog/how-async-await-in-react/</li>
+    <li>Error boundaries https://reactjs.org/docs/error-boundaries.html</li>
+    <li>Refs https://reactjs.org/docs/refs-and-the-dom.html</li>
+    <li>SPEC something....what is it????  find this TODO</li>
+    <li>Hooks https://reactjs.org/docs/hooks-intro.html</li>
+</ul>
 
 <hr>
 
@@ -364,12 +373,11 @@ Install in this order:
 The following other tools have been used during development:
 
 <ul>
-    <li><a href="https://code.visualstudio.com">vs code</a></li>
-    <li><a href="https://docs.microsoft.com/en-us/sql/sql-operations-studio/download?view=sql-server-2017">sqlops</a></li>
+    <li><a href="https://code.visualstudio.com">VS Code</a></li>
+    <li><a href="https://docs.microsoft.com/en-us/sql/azure-data-studio/">Azure Data Studio</a></li>
     <li><a href="https://www.apple.com/safari/"> Safari</a></li>
     <li><a href="https://www.google.com/chrome/">Chrome</a></li>
     <li><a href="https://www.getpostman.com">Postman</a></li>
-    <li><a href="https://codesandbox.io/">Code Sandbox</a></li>
 </ul>
 
 To make vs code a little nicer to use, try the following extensions:
@@ -380,6 +388,5 @@ To make vs code a little nicer to use, try the following extensions:
     <li><a href="https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme"></a>Material Icon Theme</li>
     <li><a href="https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode"></a>Prettier - Code formatter</li>
     <li><a href="https://quokkajs.com/docs/">quokkajs</a></li>
-    <li><a href="https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense"></a>npm intellisense</li>
     <li><a href="https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets">Reactjs ES7 code snippets</a></li>
 </ul>

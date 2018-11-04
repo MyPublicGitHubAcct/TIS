@@ -1,5 +1,11 @@
--- Create a new stored procedure called 'sp_CreateUserWithRoles' in schema 'tis'
--- Drop the stored procedure if it already exists
+/**
+    Create a new stored procedure called 'sp_CreateUserWithRoles' in schema 'tis'
+    1 - make two temp tables - one for Details & one for Roles
+    2 - add the details to AppUser
+    3 - get the new user's id
+    4 - add the role settings to UserRoles
+*/
+
 IF EXISTS (
 SELECT *
     FROM INFORMATION_SCHEMA.ROUTINES
@@ -8,15 +14,31 @@ WHERE SPECIFIC_SCHEMA = N'tis'
 )
 DROP PROCEDURE tis.sp_CreateUserWithRoles
 GO
--- Create the stored procedure in the specified schema
+
 CREATE PROCEDURE tis.sp_CreateUserWithRoles
-    @param1 /*parameter name*/ int /*datatype_for_param1*/ = 0, /*default_value_for_param1*/
-    @param2 /*parameter name*/ int /*datatype_for_param1*/ = 0 /*default_value_for_param2*/
--- add more stored procedure parameters here
+    @json VARCHAR(MAX) = '', 
+    @responseMessage VARCHAR(250) = '' OUTPUT
 AS
-    -- body of the stored procedure
-    SELECT @param1, @param2
-GO
--- example to execute the stored procedure we just created
-EXECUTE tis.sp_CreateUserWithRoles 1 /*value_for_param1*/, 2 /*value_for_param2*/
+  BEGIN
+
+--   INSERT INTO temp_details
+--   INSERT INTO temp_roles
+
+    -- bring in entire json document.
+    SELECT * FROM OPENJSON ( @json ) 
+    WITH (
+        FirstName VARCHAR(200) '$.Details.FirstName',
+        LastName VARCHAR(200) '$.Details.LastName',
+        Manager INT '$.Details.Manager',
+        Logon VARCHAR(200) '$.Details.Logon',
+        Pwd VARCHAR(200) '$.Details.Password',
+        Department INT '$.Details.Department',
+        IsManager BIT '$.Details.isManager',
+        IsActive BIT '$.Details.isActive',
+        Perms NVARCHAR(MAX) '$.Roles' AS JSON
+    )
+
+
+
+  END
 GO
