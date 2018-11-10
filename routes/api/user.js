@@ -8,8 +8,6 @@ const passport = require('passport');
 
 // load input validation
 const validateCreateUserInput = require('../../validation/createUser');
-// const validateLoginInput = require('../../validation/login');
-const validateTestInput = require('../../validation/testGetUserId');
 
 // @ route  GET api/user/test
 // @ desc   Test 'user' route
@@ -98,6 +96,46 @@ router.post('/createUsersRole', (req, res) => {
       .catch(() => {});
   } catch (err) {
     console.log('/createUser try error caught.');
+  }
+});
+
+// @ route  PUT api/user/createUserWithRoles
+// @ desc   Create a user with role assignments
+// @ access User admins only (need UserCreate=true)
+router.post('/createUserWithRoles', (req, res) => {
+  const { errors, isValid } = validateCreateUserInput(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  try {
+    const dbConn = new sql.ConnectionPool(config.dbSa);
+    dbConn
+      .connect()
+      .then(() => {
+        const request = new sql.Request(dbConn);
+        request
+          .input('json', sql.VarChar, req.body.NewUser)
+          .output('responseMessage', sql.VarChar)
+          .execute('dbtis.tis.sp_CreateUserWithRoles', (err, result) => {
+            dbConn.close();
+
+            if (!result) {
+              return res.json({ message: 'no result' });
+            }
+
+            if (result.output.responseMessage == 'duplicate') {
+              return res.json({ message: 'UserWithRoles already exists' });
+            } else {
+              return res.json({
+                message: 'successfully added NewUser'
+              });
+            }
+          });
+      })
+      .catch(() => {});
+  } catch (err) {
+    console.log('/createUserWithRoles try error caught.');
   }
 });
 

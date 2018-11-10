@@ -4,6 +4,7 @@ import {
   GET_MGR_LIST,
   GET_DPT_LIST,
   GET_USER_ROLE_LIST,
+  POST_NEW_USER_WITH_ROLES,
   USER_LOADING
 } from '../actions/types';
 
@@ -46,6 +47,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         roles: action.payload,
+        loading: false
+      };
+    case POST_NEW_USER_WITH_ROLES:
+      return {
+        ...state,
         loading: false
       };
     case USER_LOADING:

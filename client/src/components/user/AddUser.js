@@ -5,12 +5,10 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import TextFieldGroup from '../common/TextFieldGroup';
 import {
-  addUser,
   getMgrList,
   getDptList,
-  getUserIdByLogon,
   getUserRoleList,
-  addUsersRole
+  addUserWithRoles
 } from '../../actions/userActions';
 
 class AddUser extends Component {
@@ -143,7 +141,7 @@ class AddUser extends Component {
       isActive: ia
     };
 
-    console.log('newUserDetails = ' + JSON.stringify(newUserDetails));
+    // console.log('newUserDetails = ' + JSON.stringify(newUserDetails));
 
     let stateRoles = this.state.roles;
     let newUserRoles = [];
@@ -171,14 +169,11 @@ class AddUser extends Component {
     let newUser = [];
     newUser.push({ Details: newUserDetails, Roles: newUserRoles });
 
-    console.log('stateRoles = ' + JSON.stringify(stateRoles));
-    console.log('newUserRoles = ' + JSON.stringify(newUserRoles));
+    // console.log('stateRoles = ' + JSON.stringify(stateRoles));
+    // console.log('newUserRoles = ' + JSON.stringify(newUserRoles));
     console.log('newUser = ' + JSON.stringify(newUser));
 
-    // TODO - need all of these?
-    // this.props.addUser(newUser, this.props.history);
-    // this.props.getUserIdByLogon(this.state.Logon);
-    // this.props.addUsersRole(userRole);
+    this.props.addUserWithRoles(newUser);
   }
 
   render() {
@@ -340,12 +335,10 @@ class AddUser extends Component {
 }
 
 AddUser.propTypes = {
-  addUser: PropTypes.func.isRequired,
   getMgrList: PropTypes.func.isRequired,
   getDptList: PropTypes.func.isRequired,
-  getUserIdByLogon: PropTypes.func.isRequired,
   getUserRoleList: PropTypes.func.isRequired,
-  addUsersRole: PropTypes.func.isRequired,
+  addUserWithRoles: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired
 };
 
@@ -357,11 +350,9 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    addUser,
     getMgrList,
     getDptList,
-    getUserIdByLogon,
     getUserRoleList,
-    addUsersRole
+    addUserWithRoles
   }
 )(withRouter(AddUser));

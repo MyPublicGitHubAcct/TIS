@@ -17,11 +17,11 @@
     "concurrently": "^4.0.1",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.3.0",
-    "mssql": "^4.2.2",
+    "mssql": "^4.2.3",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "password-validator": "^4.1.1",
-    "validator": "^10.8.0"
+    "validator": "^10.9.0"
   },
   "repository": {
     "type": "git",
@@ -37,6 +37,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "nodemon": "^1.18.5"
+    "nodemon": "^1.18.6"
   }
 }

@@ -1,8 +1,8 @@
 /**
     Create a new stored procedure called 'sp_CreateUserWithRoles' in schema 'tis'
-    1 - make temp table
+    1 - make temp table for details
     2 - add the details to AppUser
-    3 - get the new user's id & make second temp table from the first
+    3 - get the new user's id & make second temp table for role settings
     4 - add the role settings to UserRoles
 */
 
@@ -34,11 +34,21 @@ AS
         Perms NVARCHAR(MAX) '$.Roles' AS JSON
     ) AS temp_d
 
+    -- validation
+    -- IF NOT EXISTS (SELECT FirstName FROM #temp_details) BEGIN SET @responseMessage ='MissingFirstName' END
+    -- IF NOT EXISTS (SELECT LastName FROM #temp_details) BEGIN SET @responseMessage ='MissingLastName' END
+    -- IF NOT EXISTS (SELECT Manager FROM #temp_details) BEGIN SET @responseMessage ='MissingManager' END
+    -- IF NOT EXISTS (SELECT Logon FROM #temp_details) BEGIN SET @responseMessage ='MissingLogon' END
+    -- IF NOT EXISTS (SELECT Pwd FROM #temp_details) BEGIN SET @responseMessage ='MissingPwd' END
+    -- IF NOT EXISTS (SELECT Department FROM #temp_details) BEGIN SET @responseMessage ='MissingDepartment' END
+    -- IF NOT EXISTS (SELECT IsManager FROM #temp_details) BEGIN SET @responseMessage ='MissingIsManager' END
+    -- IF NOT EXISTS (SELECT IsActive FROM #temp_details) BEGIN SET @responseMessage ='MissingIsActive' END
+    -- IF NOT EXISTS (SELECT Perms FROM #temp_details) BEGIN SET @responseMessage ='MissingPerms' END
+
     -- ///////////// ADD USER
-    -- test: if logon already exists, return 'failed'
-    --       else insert user/roles and return 'success'
+    -- test: if logon already exists, return 'duplicate' else insert user/roles and return 'success'
     IF EXISTS (SELECT Logon FROM [tis].[AppUser] WHERE Logon=(SELECT Logon FROM #temp_details))
-        SET @responseMessage='failed'
+        SET @responseMessage='duplicate'
     ELSE
         BEGIN TRY
             DECLARE @Salt UNIQUEIDENTIFIER=NEWID()
@@ -86,27 +96,10 @@ AS
 
         END TRY
         BEGIN CATCH
-            SET @responseMessage=ERROR_MESSAGE()
+            SET @responseMessage='failed'
         END CATCH
-
-
-    -- ///////////// ADD USER'S ROLES
-    -- SELECT temp_r.* INTO #temp_roles FROM OPENJSON ( @json ) 
-    -- WITH (
-    --     Perms NVARCHAR(MAX) '$.Roles' AS JSON
-    -- ) AS temp_r
-
-    -- INSERT INTO [tis].[UserRole]
-    -- SELECT @UserId AS UserId, tempPerm.*
-    -- FROM #temp_roles CROSS APPLY OPENJSON(Perms)
-    -- WITH
-    -- (
-    --     RoleId INT '$.RoleId',
-    --     UserHas BIT '$.UserHas'
-    -- ) AS tempPerm
 
     -- ///////////// CLEANUP
     DROP TABLE #temp_details
-    -- DROP TABLE #temp_roles
   END
 GO

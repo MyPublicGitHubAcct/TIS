@@ -7,6 +7,7 @@ import {
   GET_MGR_LIST,
   GET_DPT_LIST,
   GET_USER_ROLE_LIST,
+  POST_NEW_USER_WITH_ROLES,
   USER_LOADING,
   CLEAR_ERRORS
 } from '../actions/types';
@@ -95,6 +96,44 @@ export const addUsersRole = roleData => dispatch => {
         })
       );
   });
+};
+
+// add a new user with role assignments
+// export const addUserWithRoles = NewUser => dispatch => {
+//   // console.log(
+//   //   'from userActions...NewUser = ' + JSON.stringify(NewUser)
+//   // );
+//   return new Promise(resolve => {
+//     axios
+//       .post('/routes/api/user/createUserWithRoles', NewUser)
+//       .then(
+//         dispatch({
+//           type: POST_NEW_USER_WITH_ROLES
+//         })
+//       )
+//       .then(resolve('success'))
+//       .catch(err =>
+//         dispatch({
+//           type: GET_ERRORS,
+//           payload: err.response.data
+//         })
+//       );
+//   });
+// };
+export const addUserWithRoles = NewUser => dispatch => {
+  axios
+    .post('/routes/api/user/createUserWithRoles', NewUser)
+    .then(
+      dispatch({
+        type: POST_NEW_USER_WITH_ROLES
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
 };
 
 // get user by logon

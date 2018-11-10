@@ -81,7 +81,7 @@ https://docs.microsoft.com/en-us/sql/azure-data-studio/
     Save password locally:
     Slow All Schemas: true
 
-###### Azure Data Studio
+###### Azure Data Studio (formerly sqlops)
 
     Connection type: Microsoft SQL Server
     Server: localhost
@@ -171,13 +171,20 @@ Next, make the boilerplate application. <br>
 
 #### Note 5: to update dependencies
 
-    npm update [-g] [<pkg>...]
+Check with
 
-or
+    npm outdated
+    sudo npm update
+
+Then
 
     npm i -g npm-check-updates
     ncu -u
     npm install
+
+or
+
+    npm update [-g] [<pkg>...]
 
 #### Note 6: http status codes and methods
 
