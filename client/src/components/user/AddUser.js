@@ -166,12 +166,14 @@ class AddUser extends Component {
       newUserRoles.push({ RoleId: ri, UserHas: uh });
     }
 
-    let newUser = [];
-    newUser.push({ Details: newUserDetails, Roles: newUserRoles });
+    let newUser = {
+      NewUser: [{ Details: newUserDetails, Roles: newUserRoles }]
+    };
+    // newUser.push({ Details: newUserDetails, Roles: newUserRoles });
 
     // console.log('stateRoles = ' + JSON.stringify(stateRoles));
     // console.log('newUserRoles = ' + JSON.stringify(newUserRoles));
-    console.log('newUser = ' + JSON.stringify(newUser));
+    // console.log('newUser = ' + JSON.stringify(newUser));
 
     this.props.addUserWithRoles(newUser);
   }
