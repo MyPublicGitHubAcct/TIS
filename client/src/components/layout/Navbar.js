@@ -17,16 +17,21 @@ class Navbar extends Component {
 
     const authLinks = (
       <div className="collapse navbar-collapse" id="mobile-nav">
-        <div className="nav-item navbar-brand col-sm-8">
+        <div className="nav-item text-white col-sm-8">
           Welcome {' ' + user.FirstName + ' (' + user.Logon + ')'}.
         </div>
-        <a
-          href="/login"
-          className="nav-link nav-item col-sm-2"
-          onClick={this.onLogOutClick.bind(this)}
-        >
-          Log out
-        </a>
+
+        <ul className="navbar-nav col-sm-2">
+          <li className="nav-item">
+            <a
+              href="/login"
+              className="nav-link"
+              onClick={this.onLogOutClick.bind(this)}
+            >
+              Log out
+            </a>
+          </li>
+        </ul>
       </div>
     );
 
