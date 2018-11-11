@@ -1,6 +1,6 @@
 # TimeAndIssues
 
-Simple OSS application for tracking small project time and issues. It is not yet supposed to be nice; it is supposed to be minimally functional. If you would like to help us to make it nice, please fork and make pull requests!
+Simple OSS application for tracking small project time and issues. It is not yet supposed to be nice; it is supposed to be <b>TODO</b> minimally functional. If you would like to help us to make it nice, please fork and make pull requests!
 
 ## Note about reporting
 
@@ -10,7 +10,7 @@ This application is not intended to do reporting. Instead, we recommend using a 
 
 ## Frameworks, libraries, and other dependencies
 
-The application was made using following:
+The application relies upon the following:
 
 <ul>
     <li><a href="https://www.microsoft.com/en-us/sql-server/sql-server-2017">MS Sql Server</a> for data storage.</li>
@@ -141,15 +141,15 @@ https://redux.js.org/basics/usagewithreact
 
 #### NOTE 1:
 
-This application was built on an Apple <a href="https://www.apple.com/mac/"><b>Mac</b></a>. No development was attempted on a Windows machine.
+This application was built on an Apple <a href="https://www.apple.com/mac/"><b>Mac</b></a>. No development was attempted on a Windows machine. This should not cause any problems, but we suggest that you run the <b>TODO</b> tests provided before using in a production environment.
 
-#### NOTE 2: to make a front end app named "tis": <br>
+#### NOTE 2: Dev: to make a front end app named "tis":
 
-First, install Create React App (https://github.com/facebook/create-react-app). <br>
+First, install Create React App (https://github.com/facebook/create-react-app).
 
     npm install -g create-react-app
 
-Next, make the boilerplate application. <br>
+Next, make the boilerplate application.
 
     cd Documents/SourceControl/
     create-react-app tis
@@ -159,17 +159,17 @@ Next, make the boilerplate application. <br>
     sudo npm i -g npm
     npm update -g *
 
-#### NOTE 3: to run an app:<br>
+#### NOTE 3: Dev: to run an app:<br>
 
     cd Documents/SourceControl/tis
     docker start sql_server_tis
     npm run dev
 
-#### NOTE 4: to create a minified bundle (for prod):<br>
+#### NOTE 4: Dev: to create a minified bundle (for prod):<br>
 
     npm run build
 
-#### Note 5: to update dependencies
+#### Note 5: Dev: to update dependencies
 
 Check with
 
@@ -191,107 +191,74 @@ or
 https://www.restapitutorial.com/httpstatuscodes.html <br />
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
 
-#### Note 7: Guides for React used during development
+#### Note 7: Dev: Guides for React used.
 
 <ul>
     <li>Async/Await https://www.valentinog.com/blog/how-async-await-in-react/</li>
     <li>Error boundaries https://reactjs.org/docs/error-boundaries.html</li>
     <li>Refs https://reactjs.org/docs/refs-and-the-dom.html</li>
-    <li>SPEC something....what is it????  find this TODO</li>
     <li>Hooks https://reactjs.org/docs/hooks-intro.html</li>
+    <li>Suspense https://medium.com/@baphemot/understanding-react-suspense-1c73b4b0b1e6</li>
+    <li>Context https://reactjs.org/docs/context.html</li>
 </ul>
 
 <hr>
 
 ## Design notes:
 
-Project paths
+### Naming conventions
+
+Follow https://juce.com/discover/stories/coding-standards over http://crockford.com/javascript/code.html, though that can be used as well (and it is javascript-specific but uglier). Summary:
 
 <table>
     <tr>
-        <th>client path</th>
-        <th>client component </th>
-        <th>server route</th>
-        <th>database script</th>
-        <th>postman test</th>
+        <th>Classes</th>
+        <th>Variables</th>
+        <th>Functions</th>
+        <th>Underscores</th>
     </tr>
     <tr>
-        <td>a</td>
-        <td>b</td>
-        <td>c</td>
-        <td>d</td>
-        <td>e</td>
+        <td>CamelCase (first letter upper)</td>
+        <td>camelCase (first letter lower)</td>
+        <td>camelCase (first letter lower)</td>
+        <td>Never</td>
     </tr>
 </table>
 
-Time paths
-
-<table>
-    <tr>
-        <th>client path</th>
-        <th>client component </th>
-        <th>server route</th>
-        <th>database script</th>
-        <th>postman test</th>
-    </tr>
-    <tr>
-        <td>a</td>
-        <td>b</td>
-        <td>c</td>
-        <td>d</td>
-        <td>e</td>
-    </tr>
-</table>
+### Internal paths/connections
 
 User admin paths
 
 <table>
     <tr>
-        <th>client path</th>
-        <th>client component </th>
-        <th>server route</th>
-        <th>database script</th>
-        <th>postman test</th>
+        <th>Domain</th>
+        <th>Purpose</th>
+        <th>f: Component/Function</th>
+        <th>f: Action(s) / Reducer(s)</th>
+        <th>b: Server procedure(s)</th>
+        <th>b: Validation</th>
+        <th>d: Stored procedure(s)</th>
+        <th>t: Postman script</th>
     </tr>
     <tr>
-        <td>/test</td>
-        <td>N/A</td>
-        <td>/routes/api/user/test</td>
-        <td>N/A</td>
-        <td>test</td>
+        <td>Auth</td>
+        <td>Login user</td>
+        <td>Login</td>
+        <td>SET_CURRENT_USER</td>
+        <td>post /login</td>
+        <td>validateLoginInput</td>
+        <td>sp_AuthenticateUser</td>
+        <td>routes/api/auth/login</td>
     </tr>
     <tr>
-        <td>/userAdmin/addUser</td>
-        <td>CrudUser/CreateUser</td>
-        <td>/routes/api/user/createUser</td>
-        <td>sp_CreateUser</td>
-        <td>createUser</td>
-    </tr>
-    <tr>
-        <td>/userAdmin/listUsers</td>
-        <td>CrudUser/CrudUser</td>
-        <td>/routes/api/user/listUsers</td>
-        <td>sp_ListUsersByManagerId</td>
-        <td>listUsers</td>
-    </tr>
-    <tr>
-        <td>/userAdmin/changeUser</td>
-        <td>CrudUser/UpdateUser</td>
-        <td>/routes/api/user/updateUser</td>
-        <td>?</td>
-        <td>updateUser</td>
-    </tr>
-</table>
-
-Application admin paths
-
-<table>
-    <tr>
-        <th>client path</th>
-        <th>client component </th>
-        <th>server route</th>
-        <th>database script</th>
-        <th>postman test</th>
+        <td>User</td>
+        <td>Add new</td>
+        <td>AddUser</td>
+        <td>GET_MGR_LIST, GET_DPT_LIST, POST_NEW_USER_WITH_ROLES</td>
+        <td>post /createUserWithRoles</td>
+        <td>validateCreateUserInput</td>
+        <td>sp_CreateUserWithRoles</td>
+        <td>routes/api/user/createUserWithRoles</td>
     </tr>
     <tr>
         <td>a</td>
@@ -299,25 +266,9 @@ Application admin paths
         <td>c</td>
         <td>d</td>
         <td>e</td>
-    </tr>
-</table>
-
-Other paths
-
-<table>
-    <tr>
-        <th>client path</th>
-        <th>client component </th>
-        <th>server route</th>
-        <th>database script</th>
-        <th>postman test</th>
-    </tr>
-    <tr>
-        <td>a</td>
-        <td>b</td>
-        <td>c</td>
-        <td>d</td>
-        <td>e</td>
+        <td>f</td>
+        <td>g</td>
+        <td>h</td>
     </tr>
 </table>
 
@@ -359,15 +310,6 @@ Install in this order:
     <li>dbtis.tis.sp_ReadUserRoleList</li>
     <li>dbtis.tis.sp_ReadRoleListForUserId</li>
     <li>dbtis.tis.sp_ListUsersByManagerId</li>
-</ul>
-
-<h5>(additional) called in ?.js</h5>
-<ul>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
 </ul>
 
 <h5>script to remove tables and stored procedures</h5>
