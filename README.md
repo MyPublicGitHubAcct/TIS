@@ -261,6 +261,16 @@ User admin paths
         <td>routes/api/user/createUserWithRoles</td>
     </tr>
     <tr>
+        <td>User</td>
+        <td>Update</td>
+        <td>UpdateUser</td>
+        <td>?</td>
+        <td>post / ?</td>
+        <td>?</td>
+        <td>sp_UpdateUserInput ?</td>
+        <td>routes/api/user/updateUserWithRoles ?</td>
+    </tr>
+    <tr>
         <td>a</td>
         <td>b</td>
         <td>c</td>

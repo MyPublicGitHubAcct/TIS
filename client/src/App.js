@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 import Navbar from './components/layout/Navbar';
-import Footer from './components/layout/Footer';
+// import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
 import Dashboard from './components/layout/Dashboard';
 import Login from './components/auth/Login';
@@ -17,6 +17,7 @@ import Login from './components/auth/Login';
 import UserIdTest from './components/test/UserIdTest';
 
 import AddUser from './components/user/AddUser';
+import UpdateUser from './components/user/UpdateUser';
 
 import './App.css';
 
@@ -54,8 +55,11 @@ class App extends Component {
               <Switch>
                 <PrivateRoute exact path="/addUser" component={AddUser} />
               </Switch>
+              <Switch>
+                <PrivateRoute exact path="/updateUser" component={UpdateUser} />
+              </Switch>
             </div>
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </BrowserRouter>
       </Provider>
