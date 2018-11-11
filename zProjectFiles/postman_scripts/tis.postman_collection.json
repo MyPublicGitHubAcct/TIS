@@ -41,7 +41,7 @@
 						"header": [
 							{
 								"key": "Logon",
-								"value": "tellymx",
+								"value": "hardybx",
 								"type": "text"
 							}
 						],
@@ -151,7 +151,10 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:5000/routes/api/user/test",
 							"protocol": "http",
@@ -328,7 +331,10 @@
 								"value": "3"
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:5000/routes/api/user/readUserById",
 							"protocol": "http",
@@ -357,7 +363,10 @@
 								"type": "text"
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:5000/routes/api/user/readRoleListForUserId",
 							"protocol": "http",
@@ -434,7 +443,10 @@
 								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiTG9nb24iOiJoYW1weWN4IiwiRmlyc3ROYW1lIjoiQ2hyaXN0b3BoZXIiLCJpc0FjdGl2ZSI6InRydWUiLCJUaW1lQ3JlYXRlIjoidHJ1ZSIsIlRpbWVSZWFkIjoidHJ1ZSIsIlRpbWVVcGRhdGUiOiJ0cnVlIiwiVGltZURlbGV0ZSI6InRydWUiLCJpYXQiOjE1Mzc3NDIzMDcsImV4cCI6MTUzNzc1NjcwN30.QdDO63CqzZSd3jF3ts_isEowtGchCi6Q7kYsn__bBPo"
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:5000/routes/api/user/current/",
 							"protocol": "http",
@@ -463,7 +475,10 @@
 								"value": "2"
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:5000/routes/api/user/listUsers",
 							"protocol": "http",
@@ -486,7 +501,10 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:5000/routes/api/user/readMgrList",
 							"protocol": "http",
@@ -509,7 +527,10 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:5000/routes/api/user/readDptList",
 							"protocol": "http",
@@ -538,7 +559,10 @@
 								"type": "text"
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:5000/routes/api/user/readUserByLogon",
 							"protocol": "http",
@@ -567,7 +591,10 @@
 								"type": "text"
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:5000/routes/api/user/readUserByLogon",
 							"protocol": "http",
@@ -596,7 +623,10 @@
 								"type": "text"
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:5000/routes/api/user/readUserIdByLogon",
 							"protocol": "http",
@@ -613,6 +643,39 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "createUserWithRoles",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"NewUser\":[{\"Details\":{\"FirstName\":\"Cyndi\",\"LastName\":\"Truckstruck\",\"Manager\":4,\"Logon\":\"truckcx\",\"Password\":\"kjIU87$%\",\"Department\":4,\"isManager\":0,\"isActive\":1},\"Roles\":[{\"RoleId\":1,\"UserHas\":0},{\"RoleId\":2,\"UserHas\":0},{\"RoleId\":3,\"UserHas\":0},{\"RoleId\":4,\"UserHas\":1},{\"RoleId\":5,\"UserHas\":0},{\"RoleId\":6,\"UserHas\":0},{\"RoleId\":7,\"UserHas\":1},{\"RoleId\":8,\"UserHas\":0},{\"RoleId\":9,\"UserHas\":0},{\"RoleId\":10,\"UserHas\":0}]}]}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/user/createUserWithRoles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"user",
+								"createUserWithRoles"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -624,7 +687,10 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:5000/routes/api/role/test",
 							"protocol": "http",
@@ -652,7 +718,10 @@
 								"value": "3"
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:5000/routes/api/role/readRoleById",
 							"protocol": "http",
@@ -1236,7 +1305,10 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:5000/routes/api/userrole/test",
 							"protocol": "http",

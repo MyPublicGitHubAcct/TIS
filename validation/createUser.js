@@ -4,22 +4,20 @@ const schema = require('../config/password');
 
 module.exports = function validateCreateUserInput(data) {
   let errors = {};
-  let d = JSON.parse(data.NewUser); // need because 'data' is a string
 
-  console.log('----------------------------------------------');
-  console.log(d[0].Details.FirstName);
-  console.log(d[0].Details.LastName);
-  console.log(d[0].Details.Manager);
-  console.log(d[0].Details.Logon);
-  console.log(d[0].Details.Password);
-  console.log(d[0].Details.Department);
-  console.log(d[0].Details.isManager);
-  console.log(d[0].Details.isActive);
-  console.log('----------------------------------------------');
-  errors.Ironic = 'To keep from writing to db.';
+  // console.log('----------------------------------------------');
+  // console.log(data.NewUser[0].Details.FirstName);
+  // console.log(data.NewUser[0].Details.LastName);
+  // console.log(data.NewUser[0].Details.Manager);
+  // console.log(data.NewUser[0].Details.Logon);
+  // console.log(data.NewUser[0].Details.Password);
+  // console.log(data.NewUser[0].Details.Department);
+  // console.log(data.NewUser[0].Details.isManager);
+  // console.log(data.NewUser[0].Details.isActive);
+  // console.log('----------------------------------------------');
+  // errors.Testing = 'To keep from writing to db.';
 
-  /*
-  // make data
+  // make data all strings
   data.FirstName = isEmpty(data.NewUser[0].Details.FirstName)
     ? ''
     : data.NewUser[0].Details.FirstName;
@@ -53,12 +51,12 @@ module.exports = function validateCreateUserInput(data) {
     errors.FirstName = 'First name must be between 2 and 30 characters';
   }
 
-  if (!validator.isLength(data.LastName, { min: 2, max: 30 })) {
-    errors.LastName = 'Last name must be between 2 and 30 characters';
-  }
-
   if (validator.isEmpty(data.LastName)) {
     errors.LastName = 'Last name is required';
+  }
+
+  if (!validator.isLength(data.LastName, { min: 2, max: 30 })) {
+    errors.LastName = 'Last name must be between 2 and 30 characters';
   }
 
   if (validator.isEmpty(data.Logon)) {
@@ -84,7 +82,6 @@ module.exports = function validateCreateUserInput(data) {
   if (validator.isEmpty(data.Department)) {
     errors.Department = 'Department is required';
   }
-  */
 
   return {
     errors,

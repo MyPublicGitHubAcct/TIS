@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const sql = require('mssql');
 const config = require('../../config');
-// const jwt = require('jsonwebtoken');
-// const keys = require('../../config/keys');
 const passport = require('passport');
 
 // load input validation
@@ -100,13 +98,16 @@ router.post('/createUsersRole', (req, res) => {
 });
 
 // @ route  PUT api/user/createUserWithRoles
-// @ desc   Create a user with role assignments
+// @ desc   Create a user with role assignments from GUI
 // @ access User admins only (need UserCreate=true)
 router.post('/createUserWithRoles', (req, res) => {
   const { errors, isValid } = validateCreateUserInput(req.body);
   if (!isValid) {
+    console.log('validation failed in user.createUserWithRoles');
     return res.status(400).json(errors);
   }
+
+  let jsonString = JSON.stringify(req.body.NewUser);
 
   try {
     const dbConn = new sql.ConnectionPool(config.dbSa);
@@ -115,7 +116,7 @@ router.post('/createUserWithRoles', (req, res) => {
       .then(() => {
         const request = new sql.Request(dbConn);
         request
-          .input('json', sql.VarChar, req.body.NewUser)
+          .input('json', sql.VarChar, jsonString)
           .output('responseMessage', sql.VarChar)
           .execute('dbtis.tis.sp_CreateUserWithRoles', (err, result) => {
             dbConn.close();
@@ -126,10 +127,10 @@ router.post('/createUserWithRoles', (req, res) => {
 
             if (result.output.responseMessage == 'duplicate') {
               return res.json({ message: 'UserWithRoles already exists' });
+            } else if (result.output.responseMessage == 'failed') {
+              return res.json({ message: 'UserWithRoles failed @ db' });
             } else {
-              return res.json({
-                message: 'successfully added NewUser'
-              });
+              return res.json({ message: result.output.responseMessage });
             }
           });
       })

@@ -119,7 +119,6 @@ class AddUser extends Component {
     let newRoles = { ...this.state.roles };
     newRoles[e.target.id - 1].UserHas = e.target.checked;
     this.setState({ roles: newRoles });
-    // console.log(`updated state.roles = ${JSON.stringify(this.state.roles)}`);
   }
 
   onSubmit(e) {
@@ -140,8 +139,6 @@ class AddUser extends Component {
       isManager: im,
       isActive: ia
     };
-
-    // console.log('newUserDetails = ' + JSON.stringify(newUserDetails));
 
     let stateRoles = this.state.roles;
     let newUserRoles = [];
@@ -169,11 +166,6 @@ class AddUser extends Component {
     let newUser = {
       NewUser: [{ Details: newUserDetails, Roles: newUserRoles }]
     };
-    // newUser.push({ Details: newUserDetails, Roles: newUserRoles });
-
-    // console.log('stateRoles = ' + JSON.stringify(stateRoles));
-    // console.log('newUserRoles = ' + JSON.stringify(newUserRoles));
-    // console.log('newUser = ' + JSON.stringify(newUser));
 
     this.props.addUserWithRoles(newUser);
   }
