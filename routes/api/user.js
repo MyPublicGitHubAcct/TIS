@@ -226,50 +226,6 @@ router.get('/readUserIdByLogon', (req, res) => {
   }
 });
 
-// @ route  GET api/user/readUserIdByLogon
-// @ desc   Read a user's id by logon
-// @ access User admins only (need UserRead=true)
-router.get('/readUserIdByLogon', (req, res) => {
-  const { errors, isValid } = validateTestInput(req.query.logon);
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
-
-  try {
-    const dbConn = new sql.ConnectionPool(config.dbSa);
-    dbConn
-      .connect()
-      .then(() => {
-        const request = new sql.Request(dbConn);
-        request
-          .input('Logon', sql.VarChar, req.query.logon)
-          .output('responseMessage', sql.VarChar)
-          .execute('dbtis.tis.sp_ReadUserIdByLogon', (err, result) => {
-            dbConn.close();
-
-            if (err) {
-              console.log('readUserIdByLogon err = ' + err);
-            }
-
-            if (result.output.responseMessage != 'success') {
-              if (result.output.responseMessage == 'Invalid logon') {
-                return res.status(404).json({ Logon: 'Invalid logon' });
-              } else {
-                return res.status(400).json({ message: 'Unknown error' });
-              }
-            } else {
-              return res.json(result.recordset[0]);
-            }
-          });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  } catch (error) {
-    res.json({ message: 'readUserIdByLogon does not work' });
-  }
-});
-
 // @ route  GET api/user/readMgrList
 // @ desc   Return list of Managers' names
 // @ access Private
@@ -427,6 +383,38 @@ router.get('/readRoleListForUserId', (req, res) => {
       });
   } catch (error) {
     console.log('/readRoleListForUser connection failed.');
+  }
+});
+
+// @ route  GET api/user/readUserInfoForUpdateSelect
+// @ desc   Read all user's info except passwords
+// @ access User admins only (need UserRead=true)
+router.get('/readUserInfoForUpdateSelect', (req, res) => {
+  try {
+    const dbConn = new sql.ConnectionPool(config.dbSa);
+    dbConn.connect().then(() => {
+      const request = new sql.Request(dbConn);
+      request.execute(
+        'dbtis.tis.sp_UserInfoForUpdateSelect',
+        (err, recordsets) => {
+          dbConn.close();
+
+          if (err) {
+            console.log('/readUserInfoForUpdateSelect err = ' + err);
+          }
+
+          if (recordsets.rowsAffected[0] > 0) {
+            return res.json(recordsets['recordset']);
+          } else {
+            return res.status(404).json({
+              message: 'sp_UserInfoForUpdateSelect: User list not found.'
+            });
+          }
+        }
+      );
+    });
+  } catch (error) {
+    console.log('/readUserInfoForUpdateSelect connection failed.');
   }
 });
 

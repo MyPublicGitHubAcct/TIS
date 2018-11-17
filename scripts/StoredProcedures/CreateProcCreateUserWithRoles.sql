@@ -17,7 +17,7 @@ GO
 
 CREATE PROCEDURE tis.sp_CreateUserWithRoles
     @json VARCHAR(MAX) = '', 
-    @responseMessage VARCHAR(250) = '' OUTPUT
+    @responseMessage VARCHAR(250) = 'Not set.' OUTPUT
 AS
   BEGIN
     -- bring in whole json document.

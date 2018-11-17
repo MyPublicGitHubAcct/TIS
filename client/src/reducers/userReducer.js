@@ -5,11 +5,13 @@ import {
   GET_DPT_LIST,
   GET_USER_ROLE_LIST,
   POST_NEW_USER_WITH_ROLES,
+  GET_USER_INFO_FOR_UPDATE_SELECT,
   USER_LOADING
 } from '../actions/types';
 
 const initialState = {
   userData: null,
+  userInfo: null,
   userId: null,
   mgrList: null,
   dptList: null,
@@ -23,6 +25,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         userData: action.payload,
+        loading: false
+      };
+    case GET_USER_INFO_FOR_UPDATE_SELECT:
+      return {
+        ...state,
+        userInfo: action.payload,
         loading: false
       };
     case GET_USER_ID_BY_LOGON:

@@ -9,6 +9,7 @@ import {
   GET_USER_ROLE_LIST,
   POST_NEW_USER_WITH_ROLES,
   USER_LOADING,
+  GET_USER_INFO_FOR_UPDATE_SELECT,
   CLEAR_ERRORS
 } from '../actions/types';
 
@@ -18,54 +19,24 @@ const initialState = {};
 export const getMgrList = () => dispatch => {
   axios
     .get('/routes/api/user/readMgrList')
-    .then(res =>
-      dispatch({
-        type: GET_MGR_LIST,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+    .then(res => dispatch({ type: GET_MGR_LIST, payload: res.data }))
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
 
 // get dpt list
 export const getDptList = () => dispatch => {
   axios
     .get('/routes/api/user/readDptList')
-    .then(res =>
-      dispatch({
-        type: GET_DPT_LIST,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+    .then(res => dispatch({ type: GET_DPT_LIST, payload: res.data }))
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
 
 // get user role list
 export const getUserRoleList = () => dispatch => {
   axios
     .get('/routes/api/user/readUserRoleList')
-    .then(res =>
-      dispatch({
-        type: GET_USER_ROLE_LIST,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+    .then(res => dispatch({ type: GET_USER_ROLE_LIST, payload: res.data }))
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
 
 // add user
@@ -98,21 +69,22 @@ export const addUsersRole = roleData => dispatch => {
   });
 };
 
+// get user info for update select
+export const getUserInfoForUpdateSelect = () => dispatch => {
+  axios
+    .get('/routes/api/user/readUserInfoForUpdateSelect')
+    .then(res =>
+      dispatch({ type: GET_USER_INFO_FOR_UPDATE_SELECT, payload: res.data })
+    )
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+};
+
 // add a new user with role assignments
 export const addUserWithRoles = NewUser => dispatch => {
   axios
     .post('/routes/api/user/createUserWithRoles', NewUser)
-    .then(
-      dispatch({
-        type: POST_NEW_USER_WITH_ROLES
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+    .then(dispatch({ type: POST_NEW_USER_WITH_ROLES }))
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
 
 // get user by logon
@@ -120,18 +92,8 @@ export const getUserByLogon = Logon => dispatch => {
   dispatch(setUserLoading());
   axios
     .get('/routes/api/user/readUserByLogon', Logon)
-    .then(res =>
-      dispatch({
-        type: GET_USER_BY_LOGON,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+    .then(res => dispatch({ type: GET_USER_BY_LOGON, payload: res.data }))
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
 
 // get user id by logon
@@ -139,18 +101,8 @@ export const getUserIdByLogon = Logon => dispatch => {
   dispatch(setUserLoading());
   axios
     .get('/routes/api/user/readUserIdByLogon', Logon)
-    .then(res =>
-      dispatch({
-        type: GET_USER_ID_BY_LOGON,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+    .then(res => dispatch({ type: GET_USER_ID_BY_LOGON, payload: res.data }))
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
 
 // update user
@@ -158,26 +110,17 @@ export const updateUser = (userData, history) => dispatch => {
   axios
     .post('/routes/api/user/updateUser', userData)
     .then(res => history.push('/updateUser')) // success message?
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
 
 // user loading
 export const setUserLoading = () => {
-  return {
-    type: USER_LOADING
-  };
+  return { type: USER_LOADING };
 };
 
 // errors
 export const setErrorsClear = () => dispatch => {
-  dispatch({
-    type: CLEAR_ERRORS
-  });
+  dispatch({ type: CLEAR_ERRORS });
 };
 
 export default function(state = initialState, action) {

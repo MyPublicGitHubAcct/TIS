@@ -7,7 +7,8 @@ import TextFieldGroup from '../common/TextFieldGroup';
 import {
   getMgrList,
   getDptList,
-  getUserRoleList
+  getUserRoleList,
+  getUserInfoForUpdateSelect
   // addUserWithRoles
 } from '../../actions/userActions';
 
@@ -15,10 +16,10 @@ class UpdateUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      UserId: '',
       FirstName: '',
       LastName: '',
       Manager: '',
-      Logon: '',
       Department: '',
       isManager: '',
       isActive: '',
@@ -27,6 +28,7 @@ class UpdateUser extends Component {
     };
 
     this.onChange = this.onChange.bind(this);
+    this.onChangeUserIdSelect = this.onChangeUserIdSelect.bind(this);
     this.onClick = this.onClick.bind(this);
     this.onClickRole = this.onClickRole.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -36,6 +38,7 @@ class UpdateUser extends Component {
     this.props.getMgrList();
     this.props.getDptList();
     this.props.getUserRoleList();
+    this.props.getUserInfoForUpdateSelect();
     // get user
     // get user role
   }
@@ -52,6 +55,22 @@ class UpdateUser extends Component {
 
   componentWillUnmount() {
     this.setState({ errors: {} });
+  }
+
+  populateUserOpts(options) {
+    if (options) {
+      return options.map((opt, index) => (
+        <option key={index} value={parseInt(opt.ID, 10)}>
+          {opt.FirstName + ' ' + opt.LastName + '  (' + opt.Logon + ')'}
+        </option>
+      ));
+    } else {
+      return (
+        <option key="1" value="1">
+          huh?
+        </option>
+      );
+    }
   }
 
   populateMgrOpts(options) {
@@ -122,6 +141,11 @@ class UpdateUser extends Component {
     this.setState({ roles: newRoles });
   }
 
+  onChangeUserIdSelect(e) {
+    this.setState({ [e.target.name]: e.target.value });
+    // set other state/fields from userInfo
+  }
+
   onSubmit(e) {
     e.preventDefault();
 
@@ -172,7 +196,7 @@ class UpdateUser extends Component {
 
   render() {
     const { errors } = this.state;
-    const { mgrList, dptList, roles } = this.props.user;
+    const { mgrList, dptList, userInfo, roles } = this.props.user;
     // const { user } = this.props.auth;  // TODO make require some level of authority
 
     return (
@@ -183,6 +207,28 @@ class UpdateUser extends Component {
               <h1 className="display-4 text-center">Update User</h1>
               <p className="lead text-center">Time and Issues</p>
               <form noValidate onSubmit={this.onSubmit}>
+                <div className="form-group">
+                  <select
+                    required
+                    className={classnames('form-control form-control-lg', {
+                      'is-invalid': errors.UserId
+                    })}
+                    name="UserId"
+                    value={this.state.UserId}
+                    onChange={this.onChangeUserIdSelect}
+                    error={errors.UserId}
+                    id="UserId"
+                  >
+                    <option value="" hidden>
+                      Please select a UserId
+                    </option>
+                    {this.populateUserOpts(userInfo)}
+                  </select>
+                  {errors.UserId && (
+                    <div className="invalid-feedback">{errors.UserId}</div>
+                  )}
+                </div>
+
                 <div className="form-group">
                   <TextFieldGroup
                     placeholder="First name"
@@ -202,16 +248,6 @@ class UpdateUser extends Component {
                     value={this.state.LastName}
                     onChange={this.onChange}
                     error={errors.LastName}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <input
-                    className="form-control form-control-lg"
-                    name="Logon"
-                    type="text"
-                    value={this.state.Logon}
-                    disabled
                   />
                 </div>
 
@@ -320,6 +356,7 @@ UpdateUser.propTypes = {
   getMgrList: PropTypes.func.isRequired,
   getDptList: PropTypes.func.isRequired,
   getUserRoleList: PropTypes.func.isRequired,
+  getUserInfoForUpdateSelect: PropTypes.func.isRequired,
   // addUserWithRoles: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -334,7 +371,8 @@ export default connect(
   {
     getMgrList,
     getDptList,
-    getUserRoleList
+    getUserRoleList,
+    getUserInfoForUpdateSelect
     // addUserWithRoles
   }
 )(withRouter(UpdateUser));

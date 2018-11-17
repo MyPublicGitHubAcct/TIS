@@ -16,5 +16,7 @@ export const USER_LOADING = 'USER_LOADING';
 export const GET_MGR_LIST = 'GET_MGR_LIST';
 export const GET_DPT_LIST = 'GET_DPT_LIST';
 export const GET_USER_ROLE_LIST = 'GET_USER_ROLE_LIST';
+export const GET_USER_INFO_FOR_UPDATE_SELECT =
+  'GET_USER_INFO_FOR_UPDATE_SELECT';
 export const POST_USER_ROLES = 'POST_USER_ROLES';
 // export const CLEAR_USER = 'CLEAR_USER';
