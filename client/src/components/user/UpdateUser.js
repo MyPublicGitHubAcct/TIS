@@ -16,6 +16,7 @@ class UpdateUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      SelectUserId: '',
       UserId: '',
       FirstName: '',
       LastName: '',
@@ -60,8 +61,14 @@ class UpdateUser extends Component {
   populateUserOpts(options) {
     if (options) {
       return options.map((opt, index) => (
-        <option key={index} value={parseInt(opt.ID, 10)}>
-          {opt.FirstName + ' ' + opt.LastName + '  (' + opt.Logon + ')'}
+        <option key={index} value={index}>
+          {opt.FirstName +
+            ' ' +
+            opt.LastName +
+            '  (' +
+            opt.Logon +
+            ') ID: ' +
+            parseInt(opt.ID, 10)}
         </option>
       ));
     } else {
@@ -142,8 +149,35 @@ class UpdateUser extends Component {
   }
 
   onChangeUserIdSelect(e) {
-    this.setState({ [e.target.name]: e.target.value });
-    // set other state/fields from userInfo
+    const { userInfo } = this.props.user;
+    const uid = parseInt(e.target.value, 10);
+
+    // set check boxes
+    if (userInfo[uid].IsManager === true) {
+      alert('userInfo[uid].IsManager === true');
+      document.getElementById('isManager').checked = true;
+    } else {
+      alert('userInfo[uid].IsManager === false');
+      document.getElementById('isManager').checked = false;
+    }
+
+    if (userInfo[uid].IsActive === true) {
+      alert('userInfo[uid].isActive === true');
+      document.getElementById('isActive').checked = true;
+    } else {
+      alert('userInfo[uid].isActive === false');
+      document.getElementById('isActive').checked = false;
+    }
+
+    // update state
+    this.setState({ SelectUserId: uid });
+    this.setState({ UserId: userInfo[uid].ID });
+    this.setState({ FirstName: userInfo[uid].FirstName });
+    this.setState({ LastName: userInfo[uid].LastName });
+    this.setState({ Manager: userInfo[uid].Manager });
+    this.setState({ Department: userInfo[uid].Department });
+    this.setState({ isManager: userInfo[uid].IsManager });
+    this.setState({ isActive: userInfo[uid].IsActive });
   }
 
   onSubmit(e) {
@@ -214,7 +248,7 @@ class UpdateUser extends Component {
                       'is-invalid': errors.UserId
                     })}
                     name="UserId"
-                    value={this.state.UserId}
+                    value={this.state.SelectUserId}
                     onChange={this.onChangeUserIdSelect}
                     error={errors.UserId}
                     id="UserId"
