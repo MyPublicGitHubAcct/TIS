@@ -4,8 +4,6 @@ node_modules/*
 *.gz
 .vscode/.react 
 
-package-lock.json
-
 # testing
 /coverage
 
