@@ -10,7 +10,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  userIndiInfo: null,
+  userIndiInfo: null, // NOT currently used
   userListUsers: null,
   userIndiRoles: null,
   userListMgrs: null,

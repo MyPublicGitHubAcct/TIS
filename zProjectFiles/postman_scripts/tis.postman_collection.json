@@ -304,7 +304,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:5000/routes/api/user/createUser",
+							"raw": "http://localhost:5000/routes/api/user/updateUser",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -314,10 +314,43 @@
 								"routes",
 								"api",
 								"user",
-								"createUser"
+								"updateUser"
 							]
 						},
 						"description": "Adds a user"
+					},
+					"response": []
+				},
+				{
+					"name": "createUserWithRoles",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"NewUser\":[{\"Details\":{\"FirstName\":\"Cyndi\",\"LastName\":\"Truckstruck\",\"Manager\":4,\"Logon\":\"truckcx\",\"Password\":\"kjIU87$%\",\"Department\":4,\"isManager\":0,\"isActive\":1},\"Roles\":[{\"RoleId\":1,\"UserHas\":0},{\"RoleId\":2,\"UserHas\":0},{\"RoleId\":3,\"UserHas\":0},{\"RoleId\":4,\"UserHas\":1},{\"RoleId\":5,\"UserHas\":0},{\"RoleId\":6,\"UserHas\":0},{\"RoleId\":7,\"UserHas\":1},{\"RoleId\":8,\"UserHas\":0},{\"RoleId\":9,\"UserHas\":0},{\"RoleId\":10,\"UserHas\":0}]}]}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/routes/api/user/createUserWithRoles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"routes",
+								"api",
+								"user",
+								"createUserWithRoles"
+							]
+						}
 					},
 					"response": []
 				},
@@ -328,7 +361,7 @@
 						"header": [
 							{
 								"key": "userID",
-								"value": "3"
+								"value": "2"
 							}
 						],
 						"body": {
@@ -386,80 +419,6 @@
 									"value": "",
 									"disabled": true
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "login",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "Logon",
-									"value": "tellymx",
-									"type": "text"
-								},
-								{
-									"key": "Password",
-									"value": "mRule42*",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:5000/routes/api/user/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"routes",
-								"api",
-								"user",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "current",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiTG9nb24iOiJoYW1weWN4IiwiRmlyc3ROYW1lIjoiQ2hyaXN0b3BoZXIiLCJpc0FjdGl2ZSI6InRydWUiLCJUaW1lQ3JlYXRlIjoidHJ1ZSIsIlRpbWVSZWFkIjoidHJ1ZSIsIlRpbWVVcGRhdGUiOiJ0cnVlIiwiVGltZURlbGV0ZSI6InRydWUiLCJpYXQiOjE1Mzc3NDIzMDcsImV4cCI6MTUzNzc1NjcwN30.QdDO63CqzZSd3jF3ts_isEowtGchCi6Q7kYsn__bBPo"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://localhost:5000/routes/api/user/current/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"routes",
-								"api",
-								"user",
-								"current",
-								""
 							]
 						}
 					},
@@ -555,39 +514,7 @@
 						"header": [
 							{
 								"key": "Logon",
-								"value": "figsxfx",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://localhost:5000/routes/api/user/readUserByLogon",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"routes",
-								"api",
-								"user",
-								"readUserByLogon"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "readUserByLogon Copy",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Logon",
-								"value": "mcnicbx",
+								"value": "tellymx",
 								"type": "text"
 							}
 						],
@@ -645,23 +572,22 @@
 					"response": []
 				},
 				{
-					"name": "createUserWithRoles",
+					"name": "readRoleListForUserId",
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [
 							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
+								"key": "userID",
+								"value": "2",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"NewUser\":[{\"Details\":{\"FirstName\":\"Cyndi\",\"LastName\":\"Truckstruck\",\"Manager\":4,\"Logon\":\"truckcx\",\"Password\":\"kjIU87$%\",\"Department\":4,\"isManager\":0,\"isActive\":1},\"Roles\":[{\"RoleId\":1,\"UserHas\":0},{\"RoleId\":2,\"UserHas\":0},{\"RoleId\":3,\"UserHas\":0},{\"RoleId\":4,\"UserHas\":1},{\"RoleId\":5,\"UserHas\":0},{\"RoleId\":6,\"UserHas\":0},{\"RoleId\":7,\"UserHas\":1},{\"RoleId\":8,\"UserHas\":0},{\"RoleId\":9,\"UserHas\":0},{\"RoleId\":10,\"UserHas\":0}]}]}"
+							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:5000/routes/api/user/createUserWithRoles",
+							"raw": "http://localhost:5000/routes/api/user/readRoleListForUserId",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -671,7 +597,7 @@
 								"routes",
 								"api",
 								"user",
-								"createUserWithRoles"
+								"readRoleListForUserId"
 							]
 						}
 					},
@@ -734,370 +660,6 @@
 								"api",
 								"role",
 								"readRoleById"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "deleteRoleById",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "RoleName",
-									"value": "TeamMember",
-									"type": "text"
-								},
-								{
-									"key": "ProjectCreate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "ProjectRead",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "ProjectUpdate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "ProjectDelete",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "UserCreate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "UserRead",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "UserUpdate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "UserDelete",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "RoleCreate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "RoleRead",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "RoleUpdate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "RoleDelete",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "TimeCreate",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "TimeRead",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "TimeUpdate",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "TimeDelete",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "TemplateCreate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "TemplateRead",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "TemplateUpdate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "TemplateDelete",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "IssueCreate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "IssueRead",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "IssueUpdate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "IssueDelete",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "CommentCreate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "CommentRead",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "CommentUpdate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "CommentDelete",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "AdminAll",
-									"value": "0",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:5000/routes/api/role/deleteRoleById",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"routes",
-								"api",
-								"role",
-								"deleteRoleById"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "updateRoleById",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "RoleName",
-									"value": "TeamMember",
-									"type": "text"
-								},
-								{
-									"key": "ProjectCreate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "ProjectRead",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "ProjectUpdate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "ProjectDelete",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "UserCreate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "UserRead",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "UserUpdate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "UserDelete",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "RoleCreate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "RoleRead",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "RoleUpdate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "RoleDelete",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "TimeCreate",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "TimeRead",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "TimeUpdate",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "TimeDelete",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "TemplateCreate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "TemplateRead",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "TemplateUpdate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "TemplateDelete",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "IssueCreate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "IssueRead",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "IssueUpdate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "IssueDelete",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "CommentCreate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "CommentRead",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "CommentUpdate",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "CommentDelete",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "AdminAll",
-									"value": "0",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:5000/routes/api/role/updateRoleById",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"routes",
-								"api",
-								"role",
-								"updateRoleById"
 							]
 						}
 					},
@@ -1321,48 +883,6 @@
 								"api",
 								"userrole",
 								"test"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "createUserRole",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "UserId",
-									"value": "6",
-									"type": "text"
-								},
-								{
-									"key": "RoleId",
-									"value": "34",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:5000/routes/api/userrole/createUserRole",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"routes",
-								"api",
-								"userrole",
-								"createUserRole"
 							]
 						}
 					},

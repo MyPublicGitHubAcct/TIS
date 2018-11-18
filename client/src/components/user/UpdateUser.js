@@ -13,6 +13,8 @@ import {
   // addUserWithRoles
 } from '../../actions/userActions';
 
+// const store = require('./../../store');  // used in onChangeUserIdSelect to print state
+
 class UpdateUser extends Component {
   constructor(props) {
     super(props);
@@ -46,20 +48,42 @@ class UpdateUser extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.user.roleList !== prevProps.user.roleList) {
-      this.setState({ roles: this.props.user.roleList });
+    // if (this.props.user.userListRoles !== prevProps.user.userListRoles) {
+    //   this.setState({ roles: this.props.user.userListRoles });
+    // }
+
+    // fill state.roles for this user
+
+    // if (Object.keys(this.state.SelectUserId).length > 0) {
+    //   this.props.getRoleListForUserId(parseInt(this.state.SelectUserId, 10));
+    // }
+
+    // if (this.props.user.SelectUserId !== prevProps.user.SelectUserId) {
+    //   this.props.getRoleListForUserId(this.state.SelectUserId);
+    // }
+
+    // if (Object.keys(this.state.SelectUserId) != '') {
+    //   alert(this.state.SelectUserId);
+    //   this.props.getRoleListForUserId(this.state.SelectUserId);
+    // }
+
+    // this.props.getRoleListForUserId(parseInt(this.state.SelectUserId, 10));
+
+    // Object.keys(this.state.roles).length > 0
+    //   ? this.props.getRoleListForUserId(parseInt(this.state.SelectUserId, 10))
+    //   : this.setState({ roles: this.props.user.userListRoles });
+
+    // if (this.props.user.userIndiRoles == {}) {  // doesn't work...
+    //   this.setState({ userIndiRoles: {} });
+    // }
+
+    if (this.props.user.userIndiRoles !== prevProps.user.userIndiRoles) {
+      this.setState({ roles: this.props.user.userIndiRoles });
     }
 
     if (this.props.errors !== prevProps.errors) {
       this.setState({ errors: this.props.errors });
     }
-
-    // if (this.props.user !== prevProps.user) {
-    //   this.setState({ errors: this.props.user });
-    // }
-
-    // const { userListUsers } = this.props.user;
-    // this.props.getRoleListForUserId(userInfo[uid].ID)
   }
 
   componentWillUnmount() {
@@ -132,20 +156,13 @@ class UpdateUser extends Component {
                 id={role.ID}
                 type="checkbox"
                 className="form-check-input"
-                value={this.state.roles[[role.ID].UserHas]}
+                value={this.state.roles[[role.ID - 1]].UserHas}
                 onClick={this.onClickRole}
               />
             </div>
           </td>
         </tr>
       ));
-    } else {
-      return (
-        <tr>
-          <td>noh?</td>
-          <td>huh?</td>
-        </tr>
-      );
     }
   }
 
@@ -167,14 +184,7 @@ class UpdateUser extends Component {
     const { userListUsers } = this.props.user;
     const uid = parseInt(e.target.value, 10);
 
-    // this.props.getRoleListForUserId(userInfo[uid].ID).then(res => {
-    //   if (res === 'success') {
-    //     const { userRoles } = this.props.user;
-    //     userRoles ? alert('yup') : alert('nope');
-    //   } else {
-    //     console.log('problem in user.onChangeUserIdSelect()');
-    //   }
-    // });
+    this.props.getRoleListForUserId(uid);
 
     // set check boxes
     if (userListUsers[uid].IsManager === true) {
@@ -198,6 +208,9 @@ class UpdateUser extends Component {
     this.setState({ Department: userListUsers[uid].Department });
     this.setState({ isManager: userListUsers[uid].IsManager });
     this.setState({ isActive: userListUsers[uid].IsActive });
+
+    // let d = store.default.getState();
+    // console.log(JSON.stringify(d));
   }
 
   onSubmit(e) {
@@ -398,7 +411,22 @@ class UpdateUser extends Component {
                       <th scope="col">UserHas</th>
                     </tr>
                   </thead>
-                  <tbody>{this.populateRoleOpts(userListRoles)}</tbody>
+                  <tbody>
+                    {Object.keys(this.state.roles).length > 0 ? (
+                      this.populateRoleOpts(userListRoles)
+                    ) : (
+                      <React.Fragment>
+                        <tr>
+                          <td className="text-left">
+                            <div>Loading</div>
+                          </td>
+                          <td className="text-left">
+                            <div>Loading</div>
+                          </td>
+                        </tr>
+                      </React.Fragment>
+                    )}
+                  </tbody>
                 </table>
 
                 <input type="submit" className="btn btn-info btn-block mt-4" />

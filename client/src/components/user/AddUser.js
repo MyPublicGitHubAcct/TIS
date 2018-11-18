@@ -97,7 +97,7 @@ class AddUser extends Component {
                 id={role.ID}
                 type="checkbox"
                 className="form-check-input"
-                value={this.state.roles[[role.ID].UserHas]}
+                value={this.state.roles[[role.ID - 1]].UserHas}
                 onClick={this.onClickRole}
               />
             </div>
@@ -315,7 +315,22 @@ class AddUser extends Component {
                       <th scope="col">UserHas</th>
                     </tr>
                   </thead>
-                  <tbody>{this.populateRoleOpts(userListRoles)}</tbody>
+                  <tbody>
+                    {Object.keys(this.state.roles).length > 0 ? (
+                      this.populateRoleOpts(userListRoles)
+                    ) : (
+                      <React.Fragment>
+                        <tr>
+                          <td className="text-left">
+                            <div>Loading</div>
+                          </td>
+                          <td className="text-left">
+                            <div>Loading</div>
+                          </td>
+                        </tr>
+                      </React.Fragment>
+                    )}
+                  </tbody>
                 </table>
 
                 <input type="submit" className="btn btn-info btn-block mt-4" />
