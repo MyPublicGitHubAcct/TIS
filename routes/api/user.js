@@ -410,10 +410,10 @@ router.get('/readUserInfoForUpdateSelect', (req, res) => {
   }
 });
 
-// @ route  PUT api/user/listUsers
+// @ route  PUT api/user/listUsersByManagerId
 // @ desc   Lists users who report up to the current user
 // @ access User admins only (need UserRead=true)
-router.get('/listUsers', (req, res) => {
+router.get('/listUsersByManagerId', (req, res) => {
   try {
     const dbConn = new sql.ConnectionPool(config.dbSa);
     dbConn
@@ -427,18 +427,20 @@ router.get('/listUsers', (req, res) => {
             (err, recordsets, returnValue) => {
               dbConn.close();
               if (err) {
-                console.log('listUsers err = ' + err);
+                console.log('listUsersByManagerId err = ' + err);
               }
               if (returnValue) {
-                console.log('listUsers returnValue = ' + returnValue);
+                console.log(
+                  'listUsersByManagerId returnValue = ' + returnValue
+                );
               }
 
               if (recordsets.rowsAffected > 0) {
                 return res.json(recordsets['recordset']);
               } else {
-                return res
-                  .status(404)
-                  .json({ message: 'listUsers: User list not found.' });
+                return res.status(404).json({
+                  message: 'listUsersByManagerId: User list not found.'
+                });
               }
             }
           );

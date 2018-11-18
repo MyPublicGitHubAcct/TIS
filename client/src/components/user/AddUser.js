@@ -40,8 +40,8 @@ class AddUser extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.user.roles !== prevProps.user.roles) {
-      this.setState({ roles: this.props.user.roles });
+    if (this.props.user.userListRoles !== prevProps.user.userListRoles) {
+      this.setState({ roles: this.props.user.userListRoles });
     }
 
     if (this.props.errors !== prevProps.errors) {
@@ -172,7 +172,7 @@ class AddUser extends Component {
 
   render() {
     const { errors } = this.state;
-    const { mgrList, dptList, roles } = this.props.user;
+    const { userListMgrs, userListDepts, userListRoles } = this.props.user;
     // const { user } = this.props.auth;  // TODO make require some level of authority
 
     return (
@@ -242,7 +242,7 @@ class AddUser extends Component {
                     <option value="" hidden>
                       Please select a manager
                     </option>
-                    {this.populateMgrOpts(mgrList)}
+                    {this.populateMgrOpts(userListMgrs)}
                   </select>
                   {errors.Manager && (
                     <div className="invalid-feedback">{errors.Manager}</div>
@@ -264,7 +264,7 @@ class AddUser extends Component {
                     <option value="" hidden>
                       Please select a department
                     </option>
-                    {this.populateDptOpts(dptList)}
+                    {this.populateDptOpts(userListDepts)}
                   </select>
                   {errors.Department && (
                     <div className="invalid-feedback">{errors.Department}</div>
@@ -315,7 +315,7 @@ class AddUser extends Component {
                       <th scope="col">UserHas</th>
                     </tr>
                   </thead>
-                  <tbody>{this.populateRoleOpts(roles)}</tbody>
+                  <tbody>{this.populateRoleOpts(userListRoles)}</tbody>
                 </table>
 
                 <input type="submit" className="btn btn-info btn-block mt-4" />

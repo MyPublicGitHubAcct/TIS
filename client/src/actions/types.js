@@ -6,6 +6,7 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 // export const GET_CURRENT_USER = 'GET_CURRENT_USER';
 
 // userActions & userReducer
+export const GET_USER_BY_ID = 'GET_USER_BY_ID';
 export const GET_USER_BY_LOGON = 'GET_USER_BY_LOGON';
 export const GET_ROLE_LIST_FOR_USER_ID = 'GET_ROLE_LIST_FOR_USER_ID';
 export const POST_NEW_USER_WITH_ROLES = 'POST_NEW_USER_WITH_ROLES';

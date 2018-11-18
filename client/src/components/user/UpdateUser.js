@@ -46,13 +46,20 @@ class UpdateUser extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.user.roles !== prevProps.user.roles) {
-      this.setState({ roles: this.props.user.roles });
+    if (this.props.user.roleList !== prevProps.user.roleList) {
+      this.setState({ roles: this.props.user.roleList });
     }
 
     if (this.props.errors !== prevProps.errors) {
       this.setState({ errors: this.props.errors });
     }
+
+    // if (this.props.user !== prevProps.user) {
+    //   this.setState({ errors: this.props.user });
+    // }
+
+    // const { userListUsers } = this.props.user;
+    // this.props.getRoleListForUserId(userInfo[uid].ID)
   }
 
   componentWillUnmount() {
@@ -132,6 +139,13 @@ class UpdateUser extends Component {
           </td>
         </tr>
       ));
+    } else {
+      return (
+        <tr>
+          <td>noh?</td>
+          <td>huh?</td>
+        </tr>
+      );
     }
   }
 
@@ -150,18 +164,26 @@ class UpdateUser extends Component {
   }
 
   onChangeUserIdSelect(e) {
-    const { userInfo } = this.props.user;
+    const { userListUsers } = this.props.user;
     const uid = parseInt(e.target.value, 10);
-    this.props.getRoleListForUserId(userInfo[uid].ID);
+
+    // this.props.getRoleListForUserId(userInfo[uid].ID).then(res => {
+    //   if (res === 'success') {
+    //     const { userRoles } = this.props.user;
+    //     userRoles ? alert('yup') : alert('nope');
+    //   } else {
+    //     console.log('problem in user.onChangeUserIdSelect()');
+    //   }
+    // });
 
     // set check boxes
-    if (userInfo[uid].IsManager === true) {
+    if (userListUsers[uid].IsManager === true) {
       document.getElementById('isManager').checked = true;
     } else {
       document.getElementById('isManager').checked = false;
     }
 
-    if (userInfo[uid].IsActive === true) {
+    if (userListUsers[uid].IsActive === true) {
       document.getElementById('isActive').checked = true;
     } else {
       document.getElementById('isActive').checked = false;
@@ -169,13 +191,13 @@ class UpdateUser extends Component {
 
     // set state based on props
     this.setState({ SelectUserId: uid });
-    this.setState({ UserId: userInfo[uid].ID });
-    this.setState({ FirstName: userInfo[uid].FirstName });
-    this.setState({ LastName: userInfo[uid].LastName });
-    this.setState({ Manager: userInfo[uid].Manager });
-    this.setState({ Department: userInfo[uid].Department });
-    this.setState({ isManager: userInfo[uid].IsManager });
-    this.setState({ isActive: userInfo[uid].IsActive });
+    this.setState({ UserId: userListUsers[uid].ID });
+    this.setState({ FirstName: userListUsers[uid].FirstName });
+    this.setState({ LastName: userListUsers[uid].LastName });
+    this.setState({ Manager: userListUsers[uid].Manager });
+    this.setState({ Department: userListUsers[uid].Department });
+    this.setState({ isManager: userListUsers[uid].IsManager });
+    this.setState({ isActive: userListUsers[uid].IsActive });
   }
 
   onSubmit(e) {
@@ -228,7 +250,12 @@ class UpdateUser extends Component {
 
   render() {
     const { errors } = this.state;
-    const { mgrList, dptList, userInfo, roles } = this.props.user;
+    const {
+      userListMgrs,
+      userListDepts,
+      userListUsers,
+      userListRoles
+    } = this.props.user;
     // const { user } = this.props.auth;  // TODO make require some level of authority
 
     return (
@@ -254,7 +281,7 @@ class UpdateUser extends Component {
                     <option value="" hidden>
                       Please select a UserId
                     </option>
-                    {this.populateUserOpts(userInfo)}
+                    {this.populateUserOpts(userListUsers)}
                   </select>
                   {errors.UserId && (
                     <div className="invalid-feedback">{errors.UserId}</div>
@@ -298,7 +325,7 @@ class UpdateUser extends Component {
                     <option value="" hidden>
                       Please select a manager
                     </option>
-                    {this.populateMgrOpts(mgrList)}
+                    {this.populateMgrOpts(userListMgrs)}
                   </select>
                   {errors.Manager && (
                     <div className="invalid-feedback">{errors.Manager}</div>
@@ -320,7 +347,7 @@ class UpdateUser extends Component {
                     <option value="" hidden>
                       Please select a department
                     </option>
-                    {this.populateDptOpts(dptList)}
+                    {this.populateDptOpts(userListDepts)}
                   </select>
                   {errors.Department && (
                     <div className="invalid-feedback">{errors.Department}</div>
@@ -371,7 +398,7 @@ class UpdateUser extends Component {
                       <th scope="col">UserHas</th>
                     </tr>
                   </thead>
-                  <tbody>{this.populateRoleOpts(roles)}</tbody>
+                  <tbody>{this.populateRoleOpts(userListRoles)}</tbody>
                 </table>
 
                 <input type="submit" className="btn btn-info btn-block mt-4" />
