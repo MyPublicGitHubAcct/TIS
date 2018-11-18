@@ -1,18 +1,18 @@
 import {
   GET_USER_BY_LOGON,
-  GET_USER_ID_BY_LOGON,
   GET_MGR_LIST,
   GET_DPT_LIST,
   GET_USER_ROLE_LIST,
   POST_NEW_USER_WITH_ROLES,
   GET_USER_INFO_FOR_UPDATE_SELECT,
+  GET_ROLE_LIST_FOR_USER_ID,
   USER_LOADING
 } from '../actions/types';
 
 const initialState = {
   userData: null,
   userInfo: null,
-  userId: null,
+  userRoles: null,
   mgrList: null,
   dptList: null,
   roles: null,
@@ -33,10 +33,10 @@ export default function(state = initialState, action) {
         userInfo: action.payload,
         loading: false
       };
-    case GET_USER_ID_BY_LOGON:
+    case GET_ROLE_LIST_FOR_USER_ID:
       return {
         ...state,
-        userId: action.payload,
+        userRoles: action.payload,
         loading: false
       };
     case GET_MGR_LIST:

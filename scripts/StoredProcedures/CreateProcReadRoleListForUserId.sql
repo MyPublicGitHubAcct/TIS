@@ -16,6 +16,6 @@ AS
     -- body of the stored procedure
     SELECT ur.RoleId, ur.UserHas, ar.RoleName
     FROM [tis].[UserRole] ur Inner Join [tis].[AppRole] ar ON ur.RoleId=ar.ID
-    WHERE ur.UserId=@userID 
+    WHERE ur.UserId=@userID
 GO
 

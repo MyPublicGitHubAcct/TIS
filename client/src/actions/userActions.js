@@ -3,13 +3,13 @@ import axios from 'axios';
 import {
   GET_ERRORS,
   GET_USER_BY_LOGON,
-  GET_USER_ID_BY_LOGON,
   GET_MGR_LIST,
   GET_DPT_LIST,
   GET_USER_ROLE_LIST,
   POST_NEW_USER_WITH_ROLES,
   USER_LOADING,
   GET_USER_INFO_FOR_UPDATE_SELECT,
+  GET_ROLE_LIST_FOR_USER_ID,
   CLEAR_ERRORS
 } from '../actions/types';
 
@@ -71,12 +71,31 @@ export const addUsersRole = roleData => dispatch => {
 
 // get user info for update select
 export const getUserInfoForUpdateSelect = () => dispatch => {
-  axios
-    .get('/routes/api/user/readUserInfoForUpdateSelect')
-    .then(res =>
-      dispatch({ type: GET_USER_INFO_FOR_UPDATE_SELECT, payload: res.data })
-    )
-    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+  return new Promise(resolve => {
+    axios
+      .get('/routes/api/user/readUserInfoForUpdateSelect')
+      .then(res =>
+        dispatch({ type: GET_USER_INFO_FOR_UPDATE_SELECT, payload: res.data })
+      )
+      .then(resolve('success'))
+      .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+  });
+};
+
+// get roles for a specific user
+export const getRoleListForUserId = userid => dispatch => {
+  // console.log('getRoleListForUserId userid = ' + userid);
+  return new Promise(resolve => {
+    axios
+      .get('/routes/api/user/readRoleListForUserId', {
+        params: { userid: userid }
+      })
+      .then(res =>
+        dispatch({ type: GET_ROLE_LIST_FOR_USER_ID, payload: res.data })
+      )
+      .then(resolve('success'))
+      .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+  });
 };
 
 // add a new user with role assignments
@@ -93,15 +112,6 @@ export const getUserByLogon = Logon => dispatch => {
   axios
     .get('/routes/api/user/readUserByLogon', Logon)
     .then(res => dispatch({ type: GET_USER_BY_LOGON, payload: res.data }))
-    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
-};
-
-// get user id by logon
-export const getUserIdByLogon = Logon => dispatch => {
-  dispatch(setUserLoading());
-  axios
-    .get('/routes/api/user/readUserIdByLogon', Logon)
-    .then(res => dispatch({ type: GET_USER_ID_BY_LOGON, payload: res.data }))
     .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
 

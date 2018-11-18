@@ -8,7 +8,8 @@ import {
   getMgrList,
   getDptList,
   getUserRoleList,
-  getUserInfoForUpdateSelect
+  getUserInfoForUpdateSelect,
+  getRoleListForUserId
   // addUserWithRoles
 } from '../../actions/userActions';
 
@@ -151,25 +152,22 @@ class UpdateUser extends Component {
   onChangeUserIdSelect(e) {
     const { userInfo } = this.props.user;
     const uid = parseInt(e.target.value, 10);
+    this.props.getRoleListForUserId(userInfo[uid].ID);
 
     // set check boxes
     if (userInfo[uid].IsManager === true) {
-      alert('userInfo[uid].IsManager === true');
       document.getElementById('isManager').checked = true;
     } else {
-      alert('userInfo[uid].IsManager === false');
       document.getElementById('isManager').checked = false;
     }
 
     if (userInfo[uid].IsActive === true) {
-      alert('userInfo[uid].isActive === true');
       document.getElementById('isActive').checked = true;
     } else {
-      alert('userInfo[uid].isActive === false');
       document.getElementById('isActive').checked = false;
     }
 
-    // update state
+    // set state based on props
     this.setState({ SelectUserId: uid });
     this.setState({ UserId: userInfo[uid].ID });
     this.setState({ FirstName: userInfo[uid].FirstName });
@@ -391,6 +389,7 @@ UpdateUser.propTypes = {
   getDptList: PropTypes.func.isRequired,
   getUserRoleList: PropTypes.func.isRequired,
   getUserInfoForUpdateSelect: PropTypes.func.isRequired,
+  getRoleListForUserId: PropTypes.func.isRequired,
   // addUserWithRoles: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -406,7 +405,8 @@ export default connect(
     getMgrList,
     getDptList,
     getUserRoleList,
-    getUserInfoForUpdateSelect
+    getUserInfoForUpdateSelect,
+    getRoleListForUserId
     // addUserWithRoles
   }
 )(withRouter(UpdateUser));

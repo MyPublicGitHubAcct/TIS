@@ -181,10 +181,10 @@ router.get('/readUserById', (req, res) => {
   }
 });
 
-// @ route  GET api/user/readUserIdByLogon
+// @ route  GET api/user/readUserByLogon
 // @ desc   Read a user's id by logon
 // @ access User admins only (need UserRead=true)
-router.get('/readUserIdByLogon', (req, res) => {
+router.get('/readUserByLogon', (req, res) => {
   const { errors, isValid } = validateTestInput(req.body);
   if (!isValid) {
     return res.status(400).json(errors);
@@ -198,7 +198,7 @@ router.get('/readUserIdByLogon', (req, res) => {
         request
           .input('Logon', sql.VarChar, req.headers.logon)
           .execute(
-            'dbtis.tis.sp_ReadUserIdByLogon',
+            'dbtis.tis.sp_ReadUserByLogon',
             (err, recordsets, returnValue) => {
               dbConn.close();
               if (err) {
@@ -354,29 +354,21 @@ router.get('/readRoleListForUserId', (req, res) => {
       .then(() => {
         const request = new sql.Request(dbConn);
         request
-          .input('userID', sql.Int, req.headers.userid)
-          .execute(
-            'dbtis.tis.sp_ReadRoleListForUserId',
-            (err, recordsets, returnValue) => {
-              dbConn.close();
-              if (err) {
-                console.log('readRoleListForUserId err = ' + err);
-              }
-              if (returnValue) {
-                console.log(
-                  'readRoleListForUserId returnValue = ' + returnValue
-                );
-              }
-
-              if (recordsets.rowsAffected > 0) {
-                return res.json(recordsets['recordset']);
-              } else {
-                return res.status(404).json({
-                  message: 'readRoleListForUserId: Role List not found.'
-                });
-              }
+          .input('userID', sql.Int, req.query.userid)
+          .execute('dbtis.tis.sp_ReadRoleListForUserId', (err, recordsets) => {
+            dbConn.close();
+            if (err) {
+              console.log('readRoleListForUserId err = ' + err);
             }
-          );
+
+            if (recordsets.rowsAffected > 0) {
+              return res.json(recordsets['recordset']);
+            } else {
+              return res.status(404).json({
+                message: 'readRoleListForUserId: Role List not found.'
+              });
+            }
+          });
       })
       .catch(err => {
         console.log(err);
