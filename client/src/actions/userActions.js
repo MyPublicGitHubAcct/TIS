@@ -3,6 +3,7 @@ import axios from 'axios';
 import {
   GET_ERRORS,
   GET_USER_BY_LOGON,
+  STORE_USER_ID,
   GET_MGR_LIST,
   GET_DPT_LIST,
   GET_USER_ROLE_LIST,
@@ -113,6 +114,11 @@ export const getUserByLogon = Logon => dispatch => {
     .get('/routes/api/user/readUserByLogon', Logon)
     .then(res => dispatch({ type: GET_USER_BY_LOGON, payload: res.data }))
     .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+};
+
+// store user id
+export const storeUserId = ID => dispatch => {
+  dispatch({ type: STORE_USER_ID, payload: ID + 1 });
 };
 
 // update user

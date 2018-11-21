@@ -1,5 +1,6 @@
 import {
   GET_USER_BY_LOGON,
+  STORE_USER_ID,
   GET_MGR_LIST,
   GET_DPT_LIST,
   GET_USER_ROLE_LIST,
@@ -10,7 +11,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  userIndiInfo: null, // NOT currently used
+  userIndiId: null,
   userListUsers: null,
   userIndiRoles: null,
   userListMgrs: null,
@@ -24,7 +25,12 @@ export default function(state = initialState, action) {
     case GET_USER_BY_LOGON:
       return {
         ...state,
-        userIndiInfo: action.payload,
+        loading: false
+      };
+    case STORE_USER_ID:
+      return {
+        ...state,
+        userIndiId: action.payload,
         loading: false
       };
     case GET_USER_INFO_FOR_UPDATE_SELECT:

@@ -18,6 +18,7 @@ export const GET_USER_ROLE_LIST = 'GET_USER_ROLE_LIST';
 export const GET_USER_INFO_FOR_UPDATE_SELECT =
   'GET_USER_INFO_FOR_UPDATE_SELECT';
 export const POST_USER_ROLES = 'POST_USER_ROLES';
+export const STORE_USER_ID = 'STORE_USER_ID';
 // export const CLEAR_USER = 'CLEAR_USER';
 
 // testActions and testReducer

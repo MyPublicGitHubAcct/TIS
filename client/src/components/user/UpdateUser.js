@@ -9,11 +9,12 @@ import {
   getDptList,
   getUserRoleList,
   getUserInfoForUpdateSelect,
-  getRoleListForUserId
+  getRoleListForUserId,
+  storeUserId
   // addUserWithRoles
 } from '../../actions/userActions';
 
-// const store = require('./../../store');  // used in onChangeUserIdSelect to print state
+// const store = require('./../../store'); // used in onChangeUserIdSelect to print state
 
 class UpdateUser extends Component {
   constructor(props) {
@@ -27,6 +28,7 @@ class UpdateUser extends Component {
       Department: '',
       isManager: '',
       isActive: '',
+      userRoles: {},
       roles: {},
       errors: {}
     };
@@ -48,35 +50,6 @@ class UpdateUser extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // if (this.props.user.userListRoles !== prevProps.user.userListRoles) {
-    //   this.setState({ roles: this.props.user.userListRoles });
-    // }
-
-    // fill state.roles for this user
-
-    // if (Object.keys(this.state.SelectUserId).length > 0) {
-    //   this.props.getRoleListForUserId(parseInt(this.state.SelectUserId, 10));
-    // }
-
-    // if (this.props.user.SelectUserId !== prevProps.user.SelectUserId) {
-    //   this.props.getRoleListForUserId(this.state.SelectUserId);
-    // }
-
-    // if (Object.keys(this.state.SelectUserId) != '') {
-    //   alert(this.state.SelectUserId);
-    //   this.props.getRoleListForUserId(this.state.SelectUserId);
-    // }
-
-    // this.props.getRoleListForUserId(parseInt(this.state.SelectUserId, 10));
-
-    // Object.keys(this.state.roles).length > 0
-    //   ? this.props.getRoleListForUserId(parseInt(this.state.SelectUserId, 10))
-    //   : this.setState({ roles: this.props.user.userListRoles });
-
-    // if (this.props.user.userIndiRoles == {}) {  // doesn't work...
-    //   this.setState({ userIndiRoles: {} });
-    // }
-
     if (this.props.user.userIndiRoles !== prevProps.user.userIndiRoles) {
       this.setState({ roles: this.props.user.userIndiRoles });
     }
@@ -152,8 +125,8 @@ class UpdateUser extends Component {
           <td>
             <div className="form-check">
               <input
-                name={role.RoleName}
-                id={role.ID}
+                name={'role_' + role.RoleName}
+                id={'role_' + role.RoleName}
                 type="checkbox"
                 className="form-check-input"
                 value={this.state.roles[[role.ID - 1]].UserHas}
@@ -163,6 +136,25 @@ class UpdateUser extends Component {
           </td>
         </tr>
       ));
+    }
+  }
+
+  updateUserRoleCheckboxes(userroles) {
+    if (userroles) {
+      for (let key in userroles) {
+        let n = 'role_' + userroles[key].RoleName;
+        let u = userroles[key].UserHas;
+
+        if (u === true) {
+          if (document.getElementById(n)) {
+            document.getElementById(n).checked = true;
+          }
+        } else {
+          if (document.getElementById(n)) {
+            document.getElementById(n).checked = false;
+          }
+        }
+      }
     }
   }
 
@@ -181,10 +173,10 @@ class UpdateUser extends Component {
   }
 
   onChangeUserIdSelect(e) {
-    const { userListUsers } = this.props.user;
+    const { userListUsers, userIndiRoles } = this.props.user;
     const uid = parseInt(e.target.value, 10);
-
-    this.props.getRoleListForUserId(uid);
+    this.props.storeUserId(uid);
+    this.props.getRoleListForUserId(uid + 1);
 
     // set check boxes
     if (userListUsers[uid].IsManager === true) {
@@ -208,9 +200,10 @@ class UpdateUser extends Component {
     this.setState({ Department: userListUsers[uid].Department });
     this.setState({ isManager: userListUsers[uid].IsManager });
     this.setState({ isActive: userListUsers[uid].IsActive });
+    this.setState({ userRoles: userIndiRoles });
 
-    // let d = store.default.getState();
-    // console.log(JSON.stringify(d));
+    // let d = store.default.getState(); // to print state
+    // console.log(JSON.stringify(d, null, 2)); // to print state
   }
 
   onSubmit(e) {
@@ -267,7 +260,8 @@ class UpdateUser extends Component {
       userListMgrs,
       userListDepts,
       userListUsers,
-      userListRoles
+      userListRoles,
+      userIndiRoles
     } = this.props.user;
     // const { user } = this.props.auth;  // TODO make require some level of authority
 
@@ -426,6 +420,9 @@ class UpdateUser extends Component {
                         </tr>
                       </React.Fragment>
                     )}
+                    {userIndiRoles
+                      ? this.updateUserRoleCheckboxes(userIndiRoles)
+                      : null}
                   </tbody>
                 </table>
 
@@ -446,6 +443,7 @@ UpdateUser.propTypes = {
   getUserInfoForUpdateSelect: PropTypes.func.isRequired,
   getRoleListForUserId: PropTypes.func.isRequired,
   // addUserWithRoles: PropTypes.func.isRequired,
+  storeUserId: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired
 };
 
@@ -461,7 +459,8 @@ export default connect(
     getDptList,
     getUserRoleList,
     getUserInfoForUpdateSelect,
-    getRoleListForUserId
+    getRoleListForUserId,
+    storeUserId
     // addUserWithRoles
   }
 )(withRouter(UpdateUser));
