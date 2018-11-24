@@ -85,7 +85,6 @@ export const getUserInfoForUpdateSelect = () => dispatch => {
 
 // get roles for a specific user
 export const getRoleListForUserId = userid => dispatch => {
-  // console.log('getRoleListForUserId userid = ' + userid);
   return new Promise(resolve => {
     axios
       .get('/routes/api/user/readRoleListForUserId', {
