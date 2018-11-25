@@ -28,7 +28,7 @@ class UpdateUser extends Component {
       Department: '',
       isManager: '',
       isActive: '',
-      userIndiRoles: {},
+      userIndiRoles: [],
       rolesReceived: false,
       errors: {}
     };
@@ -59,6 +59,14 @@ class UpdateUser extends Component {
     }
 
     if (this.props.user.userIndiRoles !== prevProps.user.userIndiRoles) {
+      // console.log(
+      //   'prevProps.user.userIndiRoles = ' +
+      //     JSON.stringify(prevProps.user.userIndiRoles)
+      // );
+      // console.log(
+      //   'this.props.user.userIndiRoles = ' +
+      //     JSON.stringify(this.props.user.userIndiRoles)
+      // );
       this.setState({ rolesReceived: false });
       this.setState({ userIndiRoles: this.props.user.userIndiRoles }, () => {
         this.setState({ rolesReceived: true });
@@ -153,6 +161,11 @@ class UpdateUser extends Component {
    * ]
    */
   populateRoleOpts(roles) {
+    // console.log('populateRoleOpts: received roles = ' + JSON.stringify(roles));
+    // console.log(
+    //   'populateRoleOpts: this.state.userIndiRoles = ' +
+    //     JSON.stringify(this.state.userIndiRoles)
+    // );
     if (roles) {
       return roles.map(role => (
         <tr key={role.RoleId}>
@@ -175,23 +188,6 @@ class UpdateUser extends Component {
     }
   }
 
-  // updateUserRoleCheckboxes(userroles) {
-  //   if (userroles) {
-  //     for (let key in userroles) {
-  //       let n = userroles[key].RoleName;
-  //       let u = userroles[key].UserHas;
-  //       let x = document.getElementsByName(n);
-  //       if (u) {
-  //         x[0].checked = true;
-  //       } else {
-  //         x[0].checked = false;
-  //       }
-  //     }
-  //   } else {
-  //     alert('problem in UpdateUser.js: updateUserRoleCheckboxes');
-  //   }
-  // }
-
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -201,9 +197,20 @@ class UpdateUser extends Component {
   }
 
   onClickRole(e) {
-    let newRoles = { ...this.state.userIndiRoles };
+    // console.log(
+    //   'onClickRole: this.state.userIndiRoles = ' +
+    //     JSON.stringify(this.state.userIndiRoles)
+    // );
+    // let newRoles = { ...this.state.userIndiRoles };
+    let newRoles = this.state.userIndiRoles.slice(0); // make copy of array
+    // console.log('onClickRole: newRoles = ' + JSON.stringify(newRoles));
     newRoles[e.target.id - 1].UserHas = e.target.checked;
+    // console.log('onClickRole: newRoles = ' + JSON.stringify(newRoles));
     this.setState({ userIndiRoles: newRoles });
+    // console.log(
+    //   'onClickRole: this.state.userIndiRoles = ' +
+    //     JSON.stringify(this.state.userIndiRoles)
+    // );
   }
 
   onChangeUserIdSelect(e) {
