@@ -17,6 +17,7 @@ import {
 
 class UpdateUser extends Component {
   constructor(props) {
+    // console.log('constructor');
     super(props);
     this.state = {
       SelectUserId: '',
@@ -28,7 +29,7 @@ class UpdateUser extends Component {
       isManager: '',
       isActive: '',
       userIndiRoles: {},
-      roles: {},
+      rolesReceived: false,
       errors: {}
     };
 
@@ -40,6 +41,7 @@ class UpdateUser extends Component {
   }
 
   componentDidMount() {
+    // console.log('componentDidMount');
     this.props.getMgrList();
     this.props.getDptList();
     this.props.getUserRoleList();
@@ -47,10 +49,9 @@ class UpdateUser extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    // console.log('componentDidUpdate');
     if (this.props.user.userListRoles !== prevProps.user.userListRoles) {
-      // TODO: make this update userIndiRoles instead of roles
-      //       much below will need to be updated.
-      this.setState({ roles: this.props.user.userListRoles });
+      this.setState({ userIndiRoles: this.props.user.userListRoles });
     }
 
     if (this.props.user.userIndiId !== prevProps.user.userIndiId) {
@@ -58,8 +59,9 @@ class UpdateUser extends Component {
     }
 
     if (this.props.user.userIndiRoles !== prevProps.user.userIndiRoles) {
+      this.setState({ rolesReceived: false });
       this.setState({ userIndiRoles: this.props.user.userIndiRoles }, () => {
-        this.updateUserRoleCheckboxes(this.props.user.userIndiRoles);
+        this.setState({ rolesReceived: true });
       });
     }
 
@@ -69,7 +71,23 @@ class UpdateUser extends Component {
   }
 
   componentWillUnmount() {
+    // console.log('componentWillUnmount');
     this.setState({ errors: {} });
+  }
+
+  static getDerivedStateFromProps() {
+    // console.log('getDerivedStateFromProps');
+    return null;
+  }
+
+  shouldComponentUpdate() {
+    // console.log('shouldComponentUpdate');
+    return true;
+  }
+
+  getSnapshotBeforeUpdate() {
+    // console.log('getSnapshotBeforeUpdate');
+    return true;
   }
 
   populateUserOpts(options) {
@@ -126,20 +144,29 @@ class UpdateUser extends Component {
     }
   }
 
+  /** Adds rows to role table.
+   * Takes array like:
+   * [
+   *    {"RoleId":1,"UserHas":false,"RoleName":"AppAdmin"},
+   *    {"RoleId":2,"UserHas":true,"RoleName":"UserMgr"},
+   *    etc....
+   * ]
+   */
   populateRoleOpts(roles) {
     if (roles) {
       return roles.map(role => (
-        <tr key={role.ID}>
+        <tr key={role.RoleId}>
           <td className="text-left">{role.RoleName}</td>
           <td>
             <div className="form-check">
               <input
                 name={role.RoleName}
-                id={role.ID}
+                id={role.RoleId}
                 type="checkbox"
                 className="form-check-input"
-                value={this.state.roles[[role.ID - 1]].UserHas}
-                onClick={this.onClickRole}
+                value={roles[role.RoleId - 1].UserHas}
+                checked={roles[role.RoleId - 1].UserHas}
+                onChange={this.onClickRole}
               />
             </div>
           </td>
@@ -148,23 +175,22 @@ class UpdateUser extends Component {
     }
   }
 
-  updateUserRoleCheckboxes(userroles) {
-    if (userroles) {
-      for (let key in userroles) {
-        let n = userroles[key].RoleName;
-        let u = userroles[key].UserHas;
-        let x = document.getElementsByName(n);
-
-        if (u) {
-          x[0].checked = true;
-        } else {
-          x[0].checked = false;
-        }
-      }
-    } else {
-      alert('problem in UpdateUser.js: updateUserRoleCheckboxes');
-    }
-  }
+  // updateUserRoleCheckboxes(userroles) {
+  //   if (userroles) {
+  //     for (let key in userroles) {
+  //       let n = userroles[key].RoleName;
+  //       let u = userroles[key].UserHas;
+  //       let x = document.getElementsByName(n);
+  //       if (u) {
+  //         x[0].checked = true;
+  //       } else {
+  //         x[0].checked = false;
+  //       }
+  //     }
+  //   } else {
+  //     alert('problem in UpdateUser.js: updateUserRoleCheckboxes');
+  //   }
+  // }
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -175,15 +201,13 @@ class UpdateUser extends Component {
   }
 
   onClickRole(e) {
-    // TODO: fix this once role vs. userIndiRoles (state) has been addressed
-    // let newRoles = { ...this.state.userIndiRoles };
-    // newRoles[e.target.id - 1].UserHas = e.target.checked;
-    // this.setState({ userIndiRoles: newRoles });
-    // alert(e.target.name);
+    let newRoles = { ...this.state.userIndiRoles };
+    newRoles[e.target.id - 1].UserHas = e.target.checked;
+    this.setState({ userIndiRoles: newRoles });
   }
 
   onChangeUserIdSelect(e) {
-    const { userListUsers, userIndiRoles } = this.props.user;
+    const { userListUsers } = this.props.user;
     const uid = parseInt(e.target.value, 10);
     this.props.storeUserId(uid);
 
@@ -263,13 +287,8 @@ class UpdateUser extends Component {
   }
 
   render() {
-    const { errors } = this.state;
-    const {
-      userListMgrs,
-      userListDepts,
-      userListUsers,
-      userListRoles
-    } = this.props.user;
+    const { errors, rolesReceived, userIndiRoles } = this.state;
+    const { userListMgrs, userListDepts, userListUsers } = this.props.user;
     // const { user } = this.props.auth;  // TODO make require some level of authority
 
     return (
@@ -405,28 +424,20 @@ class UpdateUser extends Component {
                 </div>
                 <br />
                 <h2>User roles</h2>
-                <table className="table table-bordered table-sm table-responsive{-sm|-md|-lg|-xl}">
+                <table
+                  id="rolesTable"
+                  className="table table-bordered table-sm table-responsive{-sm|-md|-lg|-xl}"
+                >
                   <thead>
                     <tr>
                       <th scope="col">RoleName</th>
                       <th scope="col">UserHas</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    {Object.keys(this.state.roles).length > 0 ? (
-                      this.populateRoleOpts(userListRoles)
-                    ) : (
-                      <React.Fragment>
-                        <tr>
-                          <td className="text-left">
-                            <div>-</div>
-                          </td>
-                          <td className="text-left">
-                            <div>-</div>
-                          </td>
-                        </tr>
-                      </React.Fragment>
-                    )}
+                  <tbody id="tbody">
+                    {rolesReceived
+                      ? this.populateRoleOpts(userIndiRoles)
+                      : null}
                   </tbody>
                 </table>
 
