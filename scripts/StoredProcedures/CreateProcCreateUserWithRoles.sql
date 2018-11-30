@@ -4,6 +4,39 @@
     2 - add the details to AppUser
     3 - get the new user's id & make second temp table for role settings
     4 - add the role settings to UserRoles
+
+    Receives:
+    {
+        "NewUser":
+        [
+            {
+                "Details":
+                {
+                    "FirstName":"George",
+                    "LastName":"Catalan",
+                    "Manager":4,
+                    "Logon":"catalgx",
+                    "Password":"hjYU67@#",
+                    "Department":3,
+                    "isManager":0,
+                    "isActive":1
+                },
+                "Roles":
+                [
+                    {"RoleId":1,"UserHas":0},
+                    {"RoleId":2,"UserHas":0},
+                    {"RoleId":3,"UserHas":0},
+                    {"RoleId":4,"UserHas":1},
+                    {"RoleId":5,"UserHas":0},
+                    {"RoleId":6,"UserHas":0},
+                    {"RoleId":7,"UserHas":1},
+                    {"RoleId":8,"UserHas":0},
+                    {"RoleId":9,"UserHas":0},
+                    {"RoleId":10,"UserHas":1}
+                ]
+            }
+        ]
+    }
 */
 
 IF EXISTS (
@@ -34,7 +67,7 @@ AS
         Perms NVARCHAR(MAX) '$.Roles' AS JSON
     ) AS temp_d
 
-    -- validation
+    -- validation TODO
     -- IF NOT EXISTS (SELECT FirstName FROM #temp_details) BEGIN SET @responseMessage ='MissingFirstName' END
     -- IF NOT EXISTS (SELECT LastName FROM #temp_details) BEGIN SET @responseMessage ='MissingLastName' END
     -- IF NOT EXISTS (SELECT Manager FROM #temp_details) BEGIN SET @responseMessage ='MissingManager' END

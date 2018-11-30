@@ -253,7 +253,8 @@ class UpdateUser extends Component {
     const ma = parseInt(this.state.Manager, 10);
     const de = parseInt(this.state.Department, 10);
 
-    const newUserDetails = {
+    const updatedUserDetails = {
+      ID: this.props.user.userIndiId,
       FirstName: this.state.FirstName,
       LastName: this.state.LastName,
       Manager: ma,
@@ -263,13 +264,13 @@ class UpdateUser extends Component {
       isActive: ia
     };
 
-    let stateRoles = this.state.roles;
-    let newUserRoles = [];
+    let stateRoles = this.state.userIndiRoles;
+    let updatedUserRoles = [];
     let ri;
     let uh;
 
     for (let r in stateRoles) {
-      ri = stateRoles[r].ID;
+      ri = stateRoles[r].RoleId;
 
       if (
         stateRoles[r].UserHas === 'false' ||
@@ -283,12 +284,18 @@ class UpdateUser extends Component {
         uh = 1;
       }
 
-      newUserRoles.push({ RoleId: ri, UserHas: uh });
+      updatedUserRoles.push({
+        // UserId: this.props.user.userIndiId,
+        RoleId: ri,
+        UserHas: uh
+      });
     }
 
-    let newUser = {
-      NewUser: [{ Details: newUserDetails, Roles: newUserRoles }]
+    let updatedUser = {
+      NewUser: [{ Details: updatedUserDetails, Roles: updatedUserRoles }]
     };
+
+    console.log('updatedUser = ' + JSON.stringify(updatedUser));
 
     // this.props.addUserWithRoles(newUser);
   }
