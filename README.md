@@ -1,10 +1,10 @@
-# TimeAndIssues
+# Time Input System
 
-Simple OSS application for tracking small project time and issues. It is not yet supposed to be nice; it is supposed to be <b>TODO</b> minimally functional. If you would like to help us to make it nice, please fork and make pull requests!
+Simple OSS application for tracking small project time. It is not yet supposed to be nice; it is supposed to be <b>TODO</b> minimally functional. Pull requests are welcome.
 
 ## Note about reporting
 
-This application is not intended to do reporting. Instead, we recommend using a tool such as <a href="https://docs.microsoft.com/en-us/sql/reporting-services/">SSRS</a> and <b>TODO</b> have included example reports.
+This application is not intended to do reporting. Instead, we recommend using a tool such as <a href="https://docs.microsoft.com/en-us/sql/reporting-services/">SSRS</a> and <b>(TODO)</b> have included example reports.
 
 <hr>
 
