@@ -5,6 +5,7 @@ import {
   GET_DPT_LIST,
   GET_USER_ROLE_LIST,
   POST_NEW_USER_WITH_ROLES,
+  POST_UPDATED_USER_WITH_ROLES,
   GET_USER_INFO_FOR_UPDATE_SELECT,
   GET_ROLE_LIST_FOR_USER_ID,
   USER_LOADING
@@ -64,6 +65,11 @@ export default function(state = initialState, action) {
         loading: false
       };
     case POST_NEW_USER_WITH_ROLES:
+      return {
+        ...state,
+        loading: false
+      };
+    case POST_UPDATED_USER_WITH_ROLES:
       return {
         ...state,
         loading: false

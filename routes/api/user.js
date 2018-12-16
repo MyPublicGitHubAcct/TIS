@@ -6,6 +6,7 @@ const passport = require('passport');
 
 // load input validation
 const validateCreateUserInput = require('../../validation/createUser');
+const validateUpdateUserInput = require('../../validation/updateUser');
 
 // @ route  GET api/user/test
 // @ desc   Test 'user' route
@@ -137,6 +138,51 @@ router.post('/createUserWithRoles', (req, res) => {
       .catch(() => {});
   } catch (err) {
     console.log('/createUserWithRoles try error caught.');
+  }
+});
+
+// @ route  PUT api/user/updateUserWithRoles
+// @ desc   Create a user with role assignments from GUI
+// @ access User admins only (need UserCreate=true)
+router.post('/updateUserWithRoles', (req, res) => {
+  const { errors, isValid } = validateUpdateUserInput(req.body);
+  if (!isValid) {
+    console.log('validation failed in user.updateUserWithRoles');
+    return res.status(400).json(errors);
+  }
+
+  let jsonString = JSON.stringify(req.body.UpdatedUser);
+
+  try {
+    const dbConn = new sql.ConnectionPool(config.dbSa);
+    dbConn
+      .connect()
+      .then(() => {
+        const request = new sql.Request(dbConn);
+        request
+          .input('json', sql.VarChar, jsonString)
+          .output('responseMessage', sql.VarChar)
+          .execute('dbtis.tis.sp_UpdateUserWithRoles', (err, result) => {
+            dbConn.close();
+
+            if (!result) {
+              return res.json({ message: 'no result' });
+            }
+
+            if (result.output.responseMessage == 'user not found') {
+              return res.json({
+                message: 'updateUserWithRoles: user does not exist'
+              });
+            } else if (result.output.responseMessage == 'failed') {
+              return res.json({ message: 'updateUserWithRoles: failed @ db' });
+            } else {
+              return res.json({ message: result.output.responseMessage });
+            }
+          });
+      })
+      .catch(() => {});
+  } catch (err) {
+    console.log('/updateUserWithRoles try error caught.');
   }
 });
 

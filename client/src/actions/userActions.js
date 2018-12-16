@@ -8,6 +8,7 @@ import {
   GET_DPT_LIST,
   GET_USER_ROLE_LIST,
   POST_NEW_USER_WITH_ROLES,
+  POST_UPDATED_USER_WITH_ROLES,
   USER_LOADING,
   GET_USER_INFO_FOR_UPDATE_SELECT,
   GET_ROLE_LIST_FOR_USER_ID,
@@ -103,6 +104,15 @@ export const addUserWithRoles = NewUser => dispatch => {
   axios
     .post('/routes/api/user/createUserWithRoles', NewUser)
     .then(dispatch({ type: POST_NEW_USER_WITH_ROLES }))
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+};
+
+// update a user with their role assignments
+export const updateUserWithRoles = UpdatedUser => dispatch => {
+  console.log(JSON.stringify(UpdatedUser));
+  axios
+    .post('/routes/api/user/updateUserWithRoles', UpdatedUser)
+    .then(dispatch({ type: POST_UPDATED_USER_WITH_ROLES }))
     .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
 

@@ -10,6 +10,7 @@ import {
   getUserRoleList,
   getUserInfoForUpdateSelect,
   getRoleListForUserId,
+  updateUserWithRoles,
   storeUserId
 } from '../../actions/userActions';
 
@@ -285,19 +286,16 @@ class UpdateUser extends Component {
       }
 
       updatedUserRoles.push({
-        // UserId: this.props.user.userIndiId,
         RoleId: ri,
         UserHas: uh
       });
     }
 
     let updatedUser = {
-      NewUser: [{ Details: updatedUserDetails, Roles: updatedUserRoles }]
+      UpdatedUser: [{ Details: updatedUserDetails, Roles: updatedUserRoles }]
     };
 
-    console.log('updatedUser = ' + JSON.stringify(updatedUser));
-
-    // this.props.addUserWithRoles(newUser);
+    this.props.updateUserWithRoles(updatedUser);
   }
 
   render() {
@@ -471,7 +469,7 @@ UpdateUser.propTypes = {
   getUserRoleList: PropTypes.func.isRequired,
   getUserInfoForUpdateSelect: PropTypes.func.isRequired,
   getRoleListForUserId: PropTypes.func.isRequired,
-  // addUserWithRoles: PropTypes.func.isRequired,
+  updateUserWithRoles: PropTypes.func.isRequired,
   storeUserId: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -489,7 +487,7 @@ export default connect(
     getUserRoleList,
     getUserInfoForUpdateSelect,
     getRoleListForUserId,
-    storeUserId
-    // addUserWithRoles
+    storeUserId,
+    updateUserWithRoles
   }
 )(withRouter(UpdateUser));

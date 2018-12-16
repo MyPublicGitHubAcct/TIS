@@ -167,6 +167,7 @@ class AddUser extends Component {
       NewUser: [{ Details: newUserDetails, Roles: newUserRoles }]
     };
 
+    // console.log('newUser = ' + JSON.stringify(newUser));
     this.props.addUserWithRoles(newUser);
   }
 
