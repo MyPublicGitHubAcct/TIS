@@ -87,11 +87,11 @@ AS
             WHERE ID=@UserId
 
             -- ///////////// UPDATE USER'S ROLES
-            SELECT * INTO #temp_roles FROM OPENJSON ( JSON_QUERY( @json, '$.Roles' ) )
+            SELECT temp_r.* INTO #temp_roles FROM OPENJSON ( @json, '$[0].Roles' )
             WITH (
                 RoleId INT '$.RoleId',
                 UserHas BIT '$.UserHas'
-            )
+            ) AS temp_r
 
             UPDATE [tis].[UserRole]
             SET UserHas = #temp_roles.UserHas
