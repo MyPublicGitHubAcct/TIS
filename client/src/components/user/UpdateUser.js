@@ -29,7 +29,7 @@ class UpdateUser extends Component {
       Department: '',
       isManager: '',
       isActive: '',
-      userIndiRoles: [],
+      IndiRoles: [],
       rolesReceived: false,
       errors: {}
     };
@@ -51,25 +51,25 @@ class UpdateUser extends Component {
 
   componentDidUpdate(prevProps) {
     // console.log('componentDidUpdate');
-    if (this.props.user.userListRoles !== prevProps.user.userListRoles) {
-      this.setState({ userIndiRoles: this.props.user.userListRoles });
+    if (this.props.user.ListRoles !== prevProps.user.ListRoles) {
+      this.setState({ IndiRoles: this.props.user.ListRoles });
     }
 
-    if (this.props.user.userIndiId !== prevProps.user.userIndiId) {
-      this.props.getRoleListForUserId(this.props.user.userIndiId);
+    if (this.props.user.IndiId !== prevProps.user.IndiId) {
+      this.props.getRoleListForUserId(this.props.user.IndiId);
     }
 
-    if (this.props.user.userIndiRoles !== prevProps.user.userIndiRoles) {
+    if (this.props.user.IndiRoles !== prevProps.user.IndiRoles) {
       // console.log(
-      //   'prevProps.user.userIndiRoles = ' +
-      //     JSON.stringify(prevProps.user.userIndiRoles)
+      //   'prevProps.user.IndiRoles = ' +
+      //     JSON.stringify(prevProps.user.IndiRoles)
       // );
       // console.log(
-      //   'this.props.user.userIndiRoles = ' +
-      //     JSON.stringify(this.props.user.userIndiRoles)
+      //   'this.props.user.IndiRoles = ' +
+      //     JSON.stringify(this.props.user.IndiRoles)
       // );
       this.setState({ rolesReceived: false });
-      this.setState({ userIndiRoles: this.props.user.userIndiRoles }, () => {
+      this.setState({ IndiRoles: this.props.user.IndiRoles }, () => {
         this.setState({ rolesReceived: true });
       });
     }
@@ -164,8 +164,8 @@ class UpdateUser extends Component {
   populateRoleOpts(roles) {
     // console.log('populateRoleOpts: received roles = ' + JSON.stringify(roles));
     // console.log(
-    //   'populateRoleOpts: this.state.userIndiRoles = ' +
-    //     JSON.stringify(this.state.userIndiRoles)
+    //   'populateRoleOpts: this.state.IndiRoles = ' +
+    //     JSON.stringify(this.state.IndiRoles)
     // );
     if (roles) {
       return roles.map(role => (
@@ -199,34 +199,34 @@ class UpdateUser extends Component {
 
   onClickRole(e) {
     // console.log(
-    //   'onClickRole: this.state.userIndiRoles = ' +
-    //     JSON.stringify(this.state.userIndiRoles)
+    //   'onClickRole: this.state.IndiRoles = ' +
+    //     JSON.stringify(this.state.IndiRoles)
     // );
-    // let newRoles = { ...this.state.userIndiRoles };
-    let newRoles = this.state.userIndiRoles.slice(0); // make copy of array
+    // let newRoles = { ...this.state.IndiRoles };
+    let newRoles = this.state.IndiRoles.slice(0); // make copy of array
     // console.log('onClickRole: newRoles = ' + JSON.stringify(newRoles));
     newRoles[e.target.id - 1].UserHas = e.target.checked;
     // console.log('onClickRole: newRoles = ' + JSON.stringify(newRoles));
-    this.setState({ userIndiRoles: newRoles });
+    this.setState({ IndiRoles: newRoles });
     // console.log(
-    //   'onClickRole: this.state.userIndiRoles = ' +
-    //     JSON.stringify(this.state.userIndiRoles)
+    //   'onClickRole: this.state.IndiRoles = ' +
+    //     JSON.stringify(this.state.IndiRoles)
     // );
   }
 
   onChangeUserIdSelect(e) {
-    const { userListUsers } = this.props.user;
+    const { ListUsers } = this.props.user;
     const uid = parseInt(e.target.value, 10);
     this.props.storeUserId(uid);
 
     // set check boxes
-    if (userListUsers[uid].IsManager === true) {
+    if (ListUsers[uid].IsManager === true) {
       document.getElementById('isManager').checked = true;
     } else {
       document.getElementById('isManager').checked = false;
     }
 
-    if (userListUsers[uid].IsActive === true) {
+    if (ListUsers[uid].IsActive === true) {
       document.getElementById('isActive').checked = true;
     } else {
       document.getElementById('isActive').checked = false;
@@ -234,13 +234,13 @@ class UpdateUser extends Component {
 
     // set state based on props
     this.setState({ SelectUserId: uid });
-    this.setState({ UserId: userListUsers[uid].ID });
-    this.setState({ FirstName: userListUsers[uid].FirstName });
-    this.setState({ LastName: userListUsers[uid].LastName });
-    this.setState({ Manager: userListUsers[uid].Manager });
-    this.setState({ Department: userListUsers[uid].Department });
-    this.setState({ isManager: userListUsers[uid].IsManager });
-    this.setState({ isActive: userListUsers[uid].IsActive });
+    this.setState({ UserId: ListUsers[uid].ID });
+    this.setState({ FirstName: ListUsers[uid].FirstName });
+    this.setState({ LastName: ListUsers[uid].LastName });
+    this.setState({ Manager: ListUsers[uid].Manager });
+    this.setState({ Department: ListUsers[uid].Department });
+    this.setState({ isManager: ListUsers[uid].IsManager });
+    this.setState({ isActive: ListUsers[uid].IsActive });
 
     // let d = store.default.getState(); // to print state
     // console.log(JSON.stringify(d, null, 2)); // to print state
@@ -255,7 +255,7 @@ class UpdateUser extends Component {
     const de = parseInt(this.state.Department, 10);
 
     const updatedUserDetails = {
-      ID: this.props.user.userIndiId,
+      ID: this.props.us,
       FirstName: this.state.FirstName,
       LastName: this.state.LastName,
       Manager: ma,
@@ -265,7 +265,7 @@ class UpdateUser extends Component {
       isActive: ia
     };
 
-    let stateRoles = this.state.userIndiRoles;
+    let stateRoles = this.state.IndiRoles;
     let updatedUserRoles = [];
     let ri;
     let uh;
@@ -299,8 +299,8 @@ class UpdateUser extends Component {
   }
 
   render() {
-    const { errors, rolesReceived, userIndiRoles } = this.state;
-    const { userListMgrs, userListDepts, userListUsers } = this.props.user;
+    const { errors, rolesReceived, IndiRoles } = this.state;
+    const { ListMgrs, ListDepts, ListUsers } = this.props.user;
     // const { user } = this.props.auth;  // TODO make require some level of authority
 
     return (
@@ -326,7 +326,7 @@ class UpdateUser extends Component {
                     <option value="" hidden>
                       Please select a UserId
                     </option>
-                    {this.populateUserOpts(userListUsers)}
+                    {this.populateUserOpts(ListUsers)}
                   </select>
                   {errors.UserId && (
                     <div className="invalid-feedback">{errors.UserId}</div>
@@ -370,7 +370,7 @@ class UpdateUser extends Component {
                     <option value="" hidden>
                       Please select a manager
                     </option>
-                    {this.populateMgrOpts(userListMgrs)}
+                    {this.populateMgrOpts(ListMgrs)}
                   </select>
                   {errors.Manager && (
                     <div className="invalid-feedback">{errors.Manager}</div>
@@ -392,7 +392,7 @@ class UpdateUser extends Component {
                     <option value="" hidden>
                       Please select a department
                     </option>
-                    {this.populateDptOpts(userListDepts)}
+                    {this.populateDptOpts(ListDepts)}
                   </select>
                   {errors.Department && (
                     <div className="invalid-feedback">{errors.Department}</div>
@@ -447,9 +447,7 @@ class UpdateUser extends Component {
                     </tr>
                   </thead>
                   <tbody id="tbody">
-                    {rolesReceived
-                      ? this.populateRoleOpts(userIndiRoles)
-                      : null}
+                    {rolesReceived ? this.populateRoleOpts(IndiRoles) : null}
                   </tbody>
                 </table>
 

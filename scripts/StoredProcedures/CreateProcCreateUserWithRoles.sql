@@ -129,7 +129,7 @@ AS
 
         END TRY
         BEGIN CATCH
-            SET @responseMessage='failed'
+            SET @responseMessage='fail'
         END CATCH
 
     -- ///////////// CLEANUP

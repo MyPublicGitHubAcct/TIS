@@ -126,13 +126,8 @@ router.post('/createUserWithRoles', (req, res) => {
               return res.json({ message: 'no result' });
             }
 
-            if (result.output.responseMessage == 'duplicate') {
-              return res.json({ message: 'UserWithRoles already exists' });
-            } else if (result.output.responseMessage == 'failed') {
-              return res.json({ message: 'UserWithRoles failed @ db' });
-            } else {
-              return res.json({ message: result.output.responseMessage });
-            }
+            // return success, duplicate, or fail from database response
+            return res.json({ message: result.output.responseMessage });
           });
       })
       .catch(() => {});

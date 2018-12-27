@@ -61,8 +61,7 @@ AS
         Manager INT '$.Details.Manager',
         Department INT '$.Details.Department',
         IsManager BIT '$.Details.isManager',
-        IsActive BIT '$.Details.isActive',
-        Perms NVARCHAR(MAX) '$.Roles' AS JSON
+        IsActive BIT '$.Details.isActive'
     ) AS temp_d
 
     -- validation TODO 
@@ -107,71 +106,10 @@ AS
         END TRY
 
         BEGIN CATCH
-            SET @responseMessage='failed'
+            SET @responseMessage='fail'
         END CATCH
 
     ELSE
         SET @responseMessage = 'user does not exist'
     END
 GO
-
-
-    /*
-    -- IF EXISTS (SELECT ID FROM [tis].[AppUser] WHERE ID=(SELECT ID FROM #temp_details))
-        BEGIN TRY
-            DECLARE @DateChanged DATE = GETDATE()
-            
-            UPDATE [tis].[AppUser]
-            SET FirstName=(SELECT FirstName FROM #temp_details), 
-                LastName=(SELECT LastName FROM #temp_details),
-                Manager=(SELECT Manager FROM #temp_details),
-                Department=(SELECT Department FROM #temp_details),
-                isManager=(SELECT IsManager FROM #temp_details),
-                isActive=(SELECT IsActive FROM #temp_details),
-                DateChanged=@DateChanged
-            WHERE ID=@UserId
-            
-            -- ///////////// UPDATE USER'S ROLES
-            -- IF EXISTS (SELECT * FROM [tis].[UserRole] WHERE UserId=@UserId)
-                BEGIN TRY
-
-                    SELECT * INTO #temp_roles FROM OPENJSON ( JSON_QUERY( @json, '$.Roles' ) )
-                    WITH (
-                        RoleId INT '$.RoleId',
-                        UserHas BIT '$.UserHas'
-                    )
-
-                    UPDATE [tis].[UserRole]
-                    SET UserHas = #temp_roles.UserHas
-                    FROM #temp_roles
-                    WHERE [tis].[UserRole].[RoleId] = #temp_roles.RoleId
-                    AND [tis].[UserRole].[UserId] = @UserId
-
-                    SET @responseMessage='success'
-                END TRY
-
-                BEGIN CATCH
-                    SET @responseMessage='failed'
-                END CATCH
-
-            -- ELSE
-            --     SET @responseMessage='role update failed'
-
-            -- ///////////// CLEANUP
-            DROP TABLE #temp_roles
-
-        END TRY
-
-        BEGIN CATCH
-            SET @responseMessage='failed'
-        END CATCH
-
-    -- ELSE 
-    --     SET @responseMessage='user not found'
-
-    -- ///////////// CLEANUP
-    DROP TABLE #temp_details
-
-    END
-GO
-*/

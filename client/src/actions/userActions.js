@@ -101,10 +101,24 @@ export const getRoleListForUserId = userid => dispatch => {
 
 // add a new user with role assignments
 export const addUserWithRoles = NewUser => dispatch => {
-  axios
-    .post('/routes/api/user/createUserWithRoles', NewUser)
-    .then(dispatch({ type: POST_NEW_USER_WITH_ROLES }))
-    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+  return new Promise((resolve, reject) => {
+    if (!NewUser) {
+      reject('No NewUser recieved.');
+      return;
+    }
+
+    axios
+      .post('/routes/api/user/createUserWithRoles', NewUser)
+      .then(dispatch({ type: POST_NEW_USER_WITH_ROLES }))
+      .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+
+    // const req = axios
+    //   .post('/routes/api/user/createUserWithRoles', NewUser)
+    //   .then(dispatch({ type: POST_NEW_USER_WITH_ROLES }))
+    //   .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+
+    // req.then(resolve(req));
+  });
 };
 
 // update a user with their role assignments

@@ -16,7 +16,7 @@ import Login from './components/auth/Login';
 
 import UserIdTest from './components/test/UserIdTest';
 
-import AddUser from './components/user/AddUser';
+import CreateUser from './components/user/CreateUser';
 import UpdateUser from './components/user/UpdateUser';
 
 import './App.css';
@@ -53,7 +53,7 @@ class App extends Component {
                 <PrivateRoute exact path="/userIdTest" component={UserIdTest} />
               </Switch>
               <Switch>
-                <PrivateRoute exact path="/addUser" component={AddUser} />
+                <PrivateRoute exact path="/addUser" component={CreateUser} />
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/updateUser" component={UpdateUser} />

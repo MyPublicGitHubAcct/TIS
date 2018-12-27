@@ -11,7 +11,7 @@ import {
   addUserWithRoles
 } from '../../actions/userActions';
 
-class AddUser extends Component {
+class CreateUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,6 +24,7 @@ class AddUser extends Component {
       isManager: '',
       isActive: '',
       roles: {},
+      // submitted: '',
       errors: {}
     };
 
@@ -40,8 +41,8 @@ class AddUser extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.user.userListRoles !== prevProps.user.userListRoles) {
-      this.setState({ roles: this.props.user.userListRoles });
+    if (this.props.user.ListRoles !== prevProps.user.ListRoles) {
+      this.setState({ roles: this.props.user.ListRoles });
     }
 
     if (this.props.errors !== prevProps.errors) {
@@ -168,12 +169,16 @@ class AddUser extends Component {
     };
 
     // console.log('newUser = ' + JSON.stringify(newUser));
+
     this.props.addUserWithRoles(newUser);
+    document.getElementById('SuccessAlert').classList.remove('hide');
+    document.getElementById('SuccessAlert').classList.add('show');
+    // TODO redirect here.
   }
 
   render() {
     const { errors } = this.state;
-    const { userListMgrs, userListDepts, userListRoles } = this.props.user;
+    const { ListMgrs, ListDepts, ListRoles } = this.props.user;
     // const { user } = this.props.auth;  // TODO make require some level of authority
 
     return (
@@ -243,7 +248,7 @@ class AddUser extends Component {
                     <option value="" hidden>
                       Please select a manager
                     </option>
-                    {this.populateMgrOpts(userListMgrs)}
+                    {this.populateMgrOpts(ListMgrs)}
                   </select>
                   {errors.Manager && (
                     <div className="invalid-feedback">{errors.Manager}</div>
@@ -265,7 +270,7 @@ class AddUser extends Component {
                     <option value="" hidden>
                       Please select a department
                     </option>
-                    {this.populateDptOpts(userListDepts)}
+                    {this.populateDptOpts(ListDepts)}
                   </select>
                   {errors.Department && (
                     <div className="invalid-feedback">{errors.Department}</div>
@@ -318,7 +323,7 @@ class AddUser extends Component {
                   </thead>
                   <tbody>
                     {Object.keys(this.state.roles).length > 0 ? (
-                      this.populateRoleOpts(userListRoles)
+                      this.populateRoleOpts(ListRoles)
                     ) : (
                       <React.Fragment>
                         <tr>
@@ -334,8 +339,34 @@ class AddUser extends Component {
                   </tbody>
                 </table>
 
-                <input type="submit" className="btn btn-info btn-block mt-4" />
+                <input
+                  type="submit"
+                  className="btn btn-info btn-block mt-4 mb-3"
+                />
               </form>
+              {Object.keys(errors).length !== 0 ? (
+                <div
+                  className="alert alert-warning alert-dismissible fade show"
+                  role="alert"
+                >
+                  Error: User was not added!
+                  <button
+                    type="button"
+                    className="close"
+                    data-dismiss="alert"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              ) : null}
+              <div
+                id="SuccessAlert"
+                className="alert alert-success alert-dismissible fade hide"
+                role="alert"
+              >
+                Success: User was added!
+              </div>
             </div>
           </div>
         </div>
@@ -344,7 +375,7 @@ class AddUser extends Component {
   }
 }
 
-AddUser.propTypes = {
+CreateUser.propTypes = {
   getMgrList: PropTypes.func.isRequired,
   getDptList: PropTypes.func.isRequired,
   getUserRoleList: PropTypes.func.isRequired,
@@ -365,4 +396,4 @@ export default connect(
     getUserRoleList,
     addUserWithRoles
   }
-)(withRouter(AddUser));
+)(withRouter(CreateUser));

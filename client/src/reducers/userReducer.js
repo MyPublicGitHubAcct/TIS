@@ -12,12 +12,13 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  userIndiId: null,
-  userListUsers: null,
-  userIndiRoles: null,
-  userListMgrs: null,
-  userListDepts: null,
-  userListRoles: null,
+  IndiId: null,
+  ListUsers: null,
+  IndiRoles: null,
+  ListMgrs: null,
+  ListDepts: null,
+  ListRoles: null,
+  UserCreated: null,
   loading: false
 };
 
@@ -31,37 +32,37 @@ export default function(state = initialState, action) {
     case STORE_USER_ID:
       return {
         ...state,
-        userIndiId: action.payload,
+        IndiId: action.payload,
         loading: false
       };
     case GET_USER_INFO_FOR_UPDATE_SELECT:
       return {
         ...state,
-        userListUsers: action.payload,
+        ListUsers: action.payload,
         loading: false
       };
     case GET_ROLE_LIST_FOR_USER_ID:
       return {
         ...state,
-        userIndiRoles: action.payload,
+        IndiRoles: action.payload,
         loading: false
       };
     case GET_MGR_LIST:
       return {
         ...state,
-        userListMgrs: action.payload,
+        ListMgrs: action.payload,
         loading: false
       };
     case GET_DPT_LIST:
       return {
         ...state,
-        userListDepts: action.payload,
+        ListDepts: action.payload,
         loading: false
       };
     case GET_USER_ROLE_LIST:
       return {
         ...state,
-        userListRoles: action.payload,
+        ListRoles: action.payload,
         loading: false
       };
     case POST_NEW_USER_WITH_ROLES:
