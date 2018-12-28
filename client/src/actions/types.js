@@ -3,7 +3,6 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
 // authActions & authReducer
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
-// export const GET_CURRENT_USER = 'GET_CURRENT_USER';
 
 // userActions & userReducer
 export const GET_USER_BY_ID = 'GET_USER_BY_ID';
@@ -18,10 +17,11 @@ export const GET_USER_INFO_FOR_UPDATE_SELECT =
   'GET_USER_INFO_FOR_UPDATE_SELECT';
 export const POST_USER_ROLES = 'POST_USER_ROLES';
 export const USER_LOADING = 'USER_LOADING';
-// export const USER_CREATED = 'USER_CREATED';
-// export const USER_UPDATED = 'USER_UPDATED';
 export const STORE_USER_ID = 'STORE_USER_ID';
-// export const CLEAR_USER = 'CLEAR_USER';
+
+// alerts
+export const ADD_ALERT = 'ADD_ALERT';
+export const REMOVE_ALERT = 'REMOVE_ALERT';
 
 // testActions and testReducer
 export const GET_USER_ID_BY_LOGON = 'GET_USER_ID_BY_LOGON';

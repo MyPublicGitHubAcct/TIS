@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import TextFieldGroup from '../common/TextFieldGroup';
+// import SuccessAlert from '../common/SuccessAlert';
 import {
   getMgrList,
   getDptList,
@@ -24,7 +25,6 @@ class CreateUser extends Component {
       isManager: '',
       isActive: '',
       roles: {},
-      // submitted: '',
       errors: {}
     };
 
@@ -169,11 +169,7 @@ class CreateUser extends Component {
     };
 
     // console.log('newUser = ' + JSON.stringify(newUser));
-
     this.props.addUserWithRoles(newUser);
-    document.getElementById('SuccessAlert').classList.remove('hide');
-    document.getElementById('SuccessAlert').classList.add('show');
-    // TODO redirect here.
   }
 
   render() {
@@ -344,29 +340,11 @@ class CreateUser extends Component {
                   className="btn btn-info btn-block mt-4 mb-3"
                 />
               </form>
-              {Object.keys(errors).length !== 0 ? (
-                <div
-                  className="alert alert-warning alert-dismissible fade show"
-                  role="alert"
-                >
-                  Error: User was not added!
-                  <button
-                    type="button"
-                    className="close"
-                    data-dismiss="alert"
-                    aria-label="Close"
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-              ) : null}
-              <div
-                id="SuccessAlert"
-                className="alert alert-success alert-dismissible fade hide"
-                role="alert"
-              >
-                Success: User was added!
-              </div>
+              {/* <SuccessAlert
+                id="successalert"
+                className="alert hide"
+                message="-"
+              /> */}
             </div>
           </div>
         </div>

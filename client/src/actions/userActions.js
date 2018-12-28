@@ -111,13 +111,6 @@ export const addUserWithRoles = NewUser => dispatch => {
       .post('/routes/api/user/createUserWithRoles', NewUser)
       .then(dispatch({ type: POST_NEW_USER_WITH_ROLES }))
       .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
-
-    // const req = axios
-    //   .post('/routes/api/user/createUserWithRoles', NewUser)
-    //   .then(dispatch({ type: POST_NEW_USER_WITH_ROLES }))
-    //   .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
-
-    // req.then(resolve(req));
   });
 };
 
