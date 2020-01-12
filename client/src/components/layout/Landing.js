@@ -16,7 +16,7 @@ class Landing extends Component {
   render() {
     return (
       <div className="landing">
-        <p>use this to route user to logon or dashboard</p>
+        <p>If you see this, something has gone horribly wrong.</p>
       </div>
     );
   }
